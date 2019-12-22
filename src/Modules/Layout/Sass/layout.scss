@@ -1,0 +1,50 @@
+html,body{
+    font-family: 'Ubuntu',sans-serif;
+    margin: 0;
+}
+*{
+    box-sizing: border-box;
+}
+
+ul{
+    list-style-type: none;
+    >li{
+        display: inline-block;
+    }
+}
+
+a{
+    text-decoration: none;
+    color: inherit;
+}
+
+.layout{
+    display: grid;
+    grid-template-rows: 1fr 2fr 1fr;
+    grid-template-columns: repeat(3,1fr);
+    grid-template-areas: 
+        "header header header"
+        "main main main"
+        "footer footer footer";
+}
+
+.header,.main,.footer{
+    padding: 0.5rem;
+}
+
+.header{
+    grid-area: header;
+}
+
+.notifiction{
+    grid-area: notification;
+    display: none;
+}
+
+.main{
+    grid-area: main;
+}
+
+.footer{
+    grid-area: footer;
+}

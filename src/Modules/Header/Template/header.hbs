@@ -1,0 +1,36 @@
+<nav class="header-container">
+    <div class="logo-wrapper">
+        <a href="#">
+            <img src="http://localhost:4711/LocalDist/logo.png" alt="">
+        </a>
+    </div>
+    
+    <div class="categories">
+        <div class="nav-sub-wrapper">
+            <label for="search-box" class="searchbar">
+                <input type="text" id="search-box">
+                &#x1F50D;
+            </label>
+        
+            <ul class="nav-tab-container">
+                <li class="nav-tabs">
+                    <a href='#'>Movies</a>
+                    <ul class="catalog">
+                        {{#each genres}}
+                        <li class="catalog-items"><a href="{{id}}">{{name}}</a></li>
+                        {{/each}}
+                    </ul>
+                </li>
+                <li class="nav-tabs"><a href='#'>Tv Shows</a></li>
+                <li class="nav-tabs"><a href='#'>Animes</a></li>
+                <li class="nav-tabs"><a href='#'>Pepole</a></li>
+                <li class="nav-tabs"><a href='#'>Trending</a></li>
+            </ul>
+        </div>
+        <span class="menu-btn">
+            <span class="menu-bar"></span>
+            <span class="menu-bar"></span>
+            <span class="menu-bar"></span>
+        </span>
+    </div>
+</nav>

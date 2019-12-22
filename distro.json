@@ -1,0 +1,79 @@
+{
+    "name": "MovieSpace2"
+,   "author": "Sohankd"
+,   "modulePath":{
+        "Modules": "src/Modules"
+    ,   "vendor": "src/vendor" 
+    ,   "local": "LocalDist"
+    ,   "production": "ProductionDist"
+    }
+,   "modules":[
+        "Modules/Application"
+    ,   "Modules/Layout"
+    ,   "Modules/Home"
+    ,   "Modules/Header"
+    ,   "Modules/Footer"
+    ,   "Modules/Categories"
+    ,   "Modules/ProductDetails"
+    ,   "Modules/Marionette.Extras"
+    ,   "vendor/backbone"
+    ,   "vendor/backbone.radio"
+    ,   "vendor/Marionette"
+    ,   "vendor/jquery"
+    ,   "vendor/text"
+    ,   "vendor/underscore"
+    ,   "vendor/handlebars"
+    ]
+,   "javascript":{
+        "folder": "JavaScript"
+    ,   "exportFile": "javascript.js"
+    ,   "entrypoints":[
+            "Home"
+        ,   "Marionette.View"
+        ,   "Backbone.Model"
+        ,   "ProductDetails"
+        ]
+    ,   "amdConfig":{
+            "paths":{
+                "jquery": "jquery.min",
+                "underscore": "underscore.min",
+                "Handlebars": "handlebars.min",
+                "backbone": "backbone.min",
+                "backbone.radio": "backbone.radio.min",
+                "Marionette": "backbone.marionette.min"
+            }
+        ,   "shim":{
+                "jquery": {
+                    "exports": "jquery"
+                }
+            ,   "underscore": {
+                    "exports": "_"
+                }
+            ,   "Handlbars": {
+                    "exports": "Handlebars"
+                }
+            ,   "backbone": {
+                    "deps": ["jquery","underscore"]
+                ,   "exports": "backbone"
+                }
+            ,   "backbone.radio": {
+                    "deps": ["backbone"]
+                ,   "exports": "backbone.radio"
+                }
+            ,   "Marionette": {
+                    "deps": ["backbone","backbone.radio"]
+                ,   "exports": "Marionette"
+                }
+            }
+        }
+    }
+,   "template":{
+        "folder": "Template"
+    ,   "exportFile": "template.js"
+    }
+,   "scss":{
+        "folder": "Sass"
+    ,   "exportFile": "style.css"
+    ,   "mainFile": "Application.scss"
+    }
+}
