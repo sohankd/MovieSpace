@@ -53,9 +53,9 @@ define(
                     if( this.getValidRegion(region_name) )
                     {
                         var region = this.getValidRegion(region_name)
-                        ,   view = _.isFunction(viewFunc) && this.isView( viewFunc.call(this) ) ? viewFunc.call(this) : undefined;
+                        ,   view = _.isFunction(viewFunc) && viewFunc.call(this);
                         
-                        if( view )
+                        if( this.isView(view) )
                         {
                             this.showChildView(region,view);
                             this.childViewInstances.push(view);
