@@ -16,6 +16,7 @@ define('Header.View',
     return Marionette.View.extend({
 
         template: header_tpl
+    ,   tagName: 'nav'
         
     ,   initialize: function()
         {
