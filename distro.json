@@ -11,13 +11,16 @@
         "Modules/Application"
     ,   "Modules/Layout"
     ,   "Modules/Home"
+    ,   "Modules/Error.Management"
     ,   "Modules/Header"
     ,   "Modules/Footer"
     ,   "Modules/Categories"
     ,   "Modules/ProductDetails"
-    ,   "Modules/Marionette.Extras"
+    ,   "Modules/Vendors.Extras"
+    ,   "Modules/Models"
     ,   "vendor/backbone"
     ,   "vendor/backbone.radio"
+    ,   "vendor/bootstrap"
     ,   "vendor/Marionette"
     ,   "vendor/jquery"
     ,   "vendor/text"
@@ -29,8 +32,12 @@
     ,   "exportFile": "javascript.js"
     ,   "entrypoints":[
             "Home"
+        ,   "ajaxSetup"
+        ,   "Error.Management"
+        ,   "bootstrap.custom"
         ,   "Marionette.View"
         ,   "Backbone.Model"
+        ,   "Handlebars.Extra"
         ,   "ProductDetails"
         ]
     ,   "amdConfig":{
@@ -51,6 +58,9 @@
                 }
             ,   "Handlbars": {
                     "exports": "Handlebars"
+                }
+            ,   "Bootstrap":{
+                    "deps": ["jquery","popper"]
                 }
             ,   "backbone": {
                     "deps": ["jquery","underscore"]
