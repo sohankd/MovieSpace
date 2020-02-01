@@ -1,4 +1,4 @@
 LocalDist/
-src/vendor/bootstrap-4.1.3
-src/vendor/fontawesome
+#src/vendor/bootstrap-4.1.3
+#src/vendor/fontawesome
 *.zip
