@@ -1,36 +1,70 @@
-<nav class="header-container">
-    <div class="logo-wrapper">
-        <a href="#">
-            <img src="http://localhost:4711/LocalDist/logo.png" alt="">
-        </a>
-    </div>
-    
-    <div class="categories">
-        <div class="nav-sub-wrapper">
-            <label for="search-box" class="searchbar">
-                <input type="text" id="search-box">
-                &#x1F50D;
+<li class="logo-wrapper">
+    <a class="logo-container" href="#"><img src="LocalDist/logo.png" alt=""></a>
+</li>
+<li class="search-bar-wrapper">
+    <form>
+        <label for="search-bar">
+            <input type="search" name="search-bar" id="search-bar" placeholder="Search..." aria-placeholder="Search..." pattern="\w">
+            <label class="form-button-container">
+                <button class="input-reset-button" type="reset">
+                    <i class="remove-icon"></i>
+                </button>
+                <button class="search-submit-button" type="submit">
+                    <i class="icon-magnifier"></i>
+                </button>
             </label>
-        
-            <ul class="nav-tab-container">
-                <li class="nav-tabs">
-                    <a href='#'>Movies</a>
-                    <ul class="catalog">
-                        {{#each genres}}
-                        <li class="catalog-items"><a href="{{id}}">{{name}}</a></li>
-                        {{/each}}
-                    </ul>
-                </li>
-                <li class="nav-tabs"><a href='#'>Tv Shows</a></li>
-                <li class="nav-tabs"><a href='#'>Animes</a></li>
-                <li class="nav-tabs"><a href='#'>Pepole</a></li>
-                <li class="nav-tabs"><a href='#'>Trending</a></li>
-            </ul>
-        </div>
-        <span class="menu-btn">
-            <span class="menu-bar"></span>
-            <span class="menu-bar"></span>
-            <span class="menu-bar"></span>
+        </label>
+    </form>
+</li>
+<li class="nav-icons">
+    <label class="magnify-icon-wrapper"  data-toggle="collapse" data-target=".search-bar-wrapper" aria-expanded="false">
+        <i class="magnify-icon"></i>
+    </label>
+    <label class="menu-icon-wrapper" data-toggle="collapse" data-target="#category-wrapper" aria-expanded="false">
+        <span class="menu-text">Menu</span>
+        <span class="menu-bars">
+            <i class="bar"></i>
+            <i class="bar"></i>
+            <i class="bar"></i>
         </span>
-    </div>
-</nav>
+    </label>
+</li>
+<li class="category-wrapper" id="category-wrapper">
+    <ul class="category-item-wrapper">
+        <li class="category-item">
+            <label class="link-wrapper">
+                <a href="#" class="link">Movies</a>
+                <span class="icon-expand-wrapper collapsed" data-toggle="collapse" data-target="#movie-genre" aria-expanded="false" role="button">
+                    <i class="icon-expand-h"></i>
+                    <i class="icon-expand-v"></i>
+                </span>
+            </label>
+            <ul class="subcategory-item-wrapper collapse" id="movie-genre" data-parent=".category-item-wrapper">
+                {{#each genres}}
+                <li class="subcategory-item">
+                    <a href="{{id}}" class="sub-category-link">{{name}}</a>
+                </li>
+                {{/each}}
+            </ul>
+        </li>
+        <li class="category-item">
+            <label class="link-wrapper">
+                <a href="#" class="link">Tv Shows</a>
+                <span class="icon-expand-wrapper collapsed" data-toggle="collapse" data-target="#tv-genre" aria-expanded="false" role="button">
+                    <i class="icon-expand-h"></i>
+                    <i class="icon-expand-v"></i>
+                </span>
+            </label>
+            <ul class="subcategory-item-wrapper collapse" id="tv-genre" data-parent=".category-item-wrapper">
+                {{#each genres}}
+                <li class="subcategory-item">
+                    <a href="{{id}}" class="sub-category-link">{{name}}</a>
+                </li>
+                {{/each}}
+            </ul>
+        </li>
+        <li class="category-item"><a href="#" class="link">Animes</a></li>
+        <li class="category-item"><a href="#" class="link">People</a></li>
+        <li class="category-item"><a href="#" class="link">Trending</a></li>
+    </ul>
+</li>

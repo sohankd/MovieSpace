@@ -1,24 +1,35 @@
-html,body{
+
+@font-face{
+    font-family: 'Ubuntu';
+    src: url('../../../../src/vendor/Ubuntu/Ubuntu-Regular.ttf');
+}
+
+body{
     font-family: 'Ubuntu',sans-serif;
     margin: 0;
+    padding: 0;
 }
 *{
+    margin: 0;
+    padding: 0;
     box-sizing: border-box;
 }
 
-ul{
-    list-style-type: none;
-    >li{
-        display: inline-block;
-    }
+label{
+    margin-bottom: 0;
 }
 
-a{
+ul,li{
+    list-style-type: none;
+}
+
+a:hover{
     text-decoration: none;
-    color: inherit;
 }
 
 .layout{
+    @extend .container-fluid;
+    
     display: grid;
     grid-template-rows: 1fr 2fr 1fr;
     grid-template-columns: repeat(3,1fr);
@@ -26,17 +37,26 @@ a{
         "header header header"
         "main main main"
         "footer footer footer";
+    min-height: 100vh;
+    background-color: $color-primary;
+        
+    @media (max-width: 468px){
+        padding: 0;
+    }
 }
 
-.header,.main,.footer{
-    padding: 0.5rem;
+#header,.main,#footer{
+    padding: 10px;
 }
 
-.header{
+#header{
     grid-area: header;
 }
 
-.notifiction{
+.notification{
+    @extend .alert;
+    
+    font-weight: bold;
     grid-area: notification;
     display: none;
 }
@@ -45,6 +65,6 @@ a{
     grid-area: main;
 }
 
-.footer{
+#footer{
     grid-area: footer;
 }

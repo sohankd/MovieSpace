@@ -25,11 +25,6 @@ define('Application',
         
     ,   layout: null
 
-    ,   initialize()
-        {
-            
-        }
-
     ,   onBeforeStart(application,options)
         {
             ApplicationStarter(application);

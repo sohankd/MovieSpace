@@ -34,17 +34,16 @@ define(
         ,   'footer': '#footer'
         }
 
-    ,   initialize: function()
-        {
-            
-        }
-
     ,   childViews:{
             'header': function(){
-                return new HeaderView();
+                return new HeaderView({
+                    application: this.options && this.options.application
+                });
             }
         ,   'footer': function(){
-                return new FooterView();
+                return new FooterView({
+                    application: this.options && this.options.application
+                });
             }
     }
 
