@@ -18,9 +18,7 @@ define('Tv.Model'
             return Configuration.tmdb['base_uri'] + 'tv/';
         }
 
-    ,   ajaxOptions:{
-            includeKey: true
-        }
+    ,   includeKey: true
     
     });
 });

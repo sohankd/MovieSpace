@@ -18,9 +18,7 @@ define('People.Model'
             return Configuration.tmdb['base_uri'] + 'person/';
         }
 
-    ,   ajaxOptions:{
-            includeKey: true
-        }
+    ,   includeKey: true
     
     });
 });
