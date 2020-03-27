@@ -11,16 +11,21 @@ define('Handlebars.Extra'
 {
     'use strict';
 
-    Handlebars.registerHelper('getTmdbImageLink',function(url,option){
-        var escapedUrl = Handlebars.escapeExpression(url);
-        var url = (Configuration.tmdb && Configuration.tmdb.images && Configuration.tmdb.images.base_url) ? Configuration.tmdb.images.base_url+escapedUrl : escapedUrl;
-        console.log(Configuration.tmdb && Configuration.tmdb.images && Configuration.tmdb.images.base_url)
+    Handlebars.registerHelper('getTmdbImageLink',function(url,size,option){
+        var escapedUrl = Handlebars.escapeExpression(url)
+        ,   image_size = size || 'w500'
+        ,   complete_img_url = image_size + escapedUrl
+        ,   url = (Configuration.tmdb && Configuration.tmdb.images && Configuration.tmdb.images.base_url) ? (Configuration.tmdb.images.base_url + complete_img_url) : complete_img_url;
+        
         return url; 
     });
 
-    Handlebars.registerHelper('getTmdbImageSecureLink',function(url,option){
-        var escapedUrl = Handlebars.escapeExpression(url);
-        var url = (Configuration.tmdb && Configuration.tmdb.images && Configuration.tmdb.images.secure_base_url) ? Configuration.tmdb.images.secure_base_url+escapedUrl : escapedUrl;
+    Handlebars.registerHelper('getTmdbImageSecureLink',function(url,size,option){
+        var escapedUrl = Handlebars.escapeExpression(url)
+        ,   image_size = size || 'w500'
+        ,   complete_img_url = image_size + escapedUrl
+        ,   url = (Configuration.tmdb && Configuration.tmdb.images && Configuration.tmdb.images.secure_base_url) ? Configuration.tmdb.images.secure_base_url+complete_img_url : complete_img_url;
+        
         return url; 
     });
     
