@@ -100,10 +100,7 @@ define(
                 {
                     mainRegion.hasView() ? this.triggerMethod('before:empty') : (void 0);
                     mainRegion.empty();
-                    layout.triggerMethod('empty');
-                    layout.triggerMethod('before:attach');
                     layout.showChildView('content',this);
-                    layout.triggerMethod('attach');
                 }
             }
         }
@@ -120,10 +117,7 @@ define(
                 {
                     mainRegion.hasView() ? this.triggerMethod('before:empty') : (void 0);
                     mainRegion.empty();
-                    layout.triggerMethod('empty');
-                    layout.triggerMethod('before:attach');
                     layout.showChildView('notification',this);
-                    layout.triggerMethod('attach');
                 }
             }
         }
