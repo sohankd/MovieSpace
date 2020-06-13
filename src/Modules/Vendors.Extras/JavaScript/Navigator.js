@@ -13,10 +13,9 @@ define('Navigator'
     
     return function navigationBypass()
     {
-        jQuery('body').on('click','a',function(e){
-
+        jQuery(document).on('click','a',function(e){
             e.preventDefault();
-            var url = jQuery(e.target).attr('href');
+            var url = jQuery(e.currentTarget).attr('href');
             Backbone.history.navigate(url,{trigger: true});
         });
     }
