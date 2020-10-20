@@ -26,6 +26,6 @@ define('Error.Management'
             navigationBypass();
         });
         
-        Backbone.$(window).on('hashchange',handleRoutes);
+        jQuery(window).on('hashchange',handleRoutes);
     }
 });
