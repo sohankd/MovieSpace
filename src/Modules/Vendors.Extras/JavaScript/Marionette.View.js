@@ -1,6 +1,7 @@
 define(
     [
         'Marionette'
+    ,   'backbone'
     ,   "ImageLoader"
     ,   'Handlebars'
     ,   'underscore'
@@ -8,6 +9,7 @@ define(
 ,   function
     (
         Marionette
+    ,   Backbone
     ,   ImageLoader
     ,   Handlebars
     ,   _
@@ -17,9 +19,7 @@ define(
     
     _.extend(Marionette.View.prototype,{
         
-        childViewInstances: []
-
-    ,   getTemplate: function() {
+        getTemplate: function() {
             var compiled_template = this.template;
 
             if(this.template && !_.isFunction(this.template)){
@@ -53,7 +53,6 @@ define(
                         
                         if( this.isView(view) ) {
                             this.showChildView(region,view);
-                            this.childViewInstances.push(view);
                         }
                         else
                             throw new Error('view is not a constructor/function.')
@@ -105,6 +104,20 @@ define(
                     layout.showChildView('notification',this);
                 }
             }
+        }
+
+    ,   renderChildView: function(region_name){
+            var child_view_constructor = this.childViews[region_name]
+            this.getRegion(region_name) && this.getRegion(region_name).empty();
+            this.showChildView(region_name,child_view_constructor.call(this))
+        }
+
+    ,   renderChildViews: function(){
+            var _this = this
+            ,   regions = _.keys(this.getRegions || {});
+            _.each(regions,function(region){
+                _this.renderChildView(region);
+            });
         }
     });
     
