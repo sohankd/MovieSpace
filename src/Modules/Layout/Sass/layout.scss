@@ -29,16 +29,9 @@ a:hover{
 
 .layout{
     @extend .container-fluid;
-    
-    display: grid;
-    grid-template-rows: 1fr 2fr 1fr;
-    grid-template-columns: repeat(3,1fr);
-    grid-template-areas: 
-        "header header header"
-        "main main main"
-        "footer footer footer";
-    min-height: 100vh;
-    background-color: $color-primary;
+    background-color: $color-theme-background;
+    position: relative;
+    overflow: hidden;
         
     @media (max-width: 468px){
         padding: 0;
@@ -49,22 +42,26 @@ a:hover{
     padding: 10px;
 }
 
-#header{
-    grid-area: header;
-}
-
 .notification{
-    @extend .alert;
-    
+    @extend .alert;  
     font-weight: bold;
-    grid-area: notification;
     display: none;
 }
 
 .main{
-    grid-area: main;
+    min-height: 300px;
 }
 
-#footer{
-    grid-area: footer;
+.overlay{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 3;
+    top: 0;
+    background: rgba($color: $color-theme-background, $alpha: 0.6);
+    display: none;
+
+    &.show{
+        display: block;
+    }
 }

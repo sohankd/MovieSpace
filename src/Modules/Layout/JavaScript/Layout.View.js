@@ -1,8 +1,6 @@
-define(
-    [
-
+define('Layout.View'
+,   [
         'text!src/Modules/Layout/Template/layout.hbs'
-
     ,   'Header.View'
     ,   'Footer.View'
 
@@ -12,7 +10,6 @@ define(
     ,
     function
     (
-        
         layout
     ,   HeaderView
     ,   FooterView
@@ -26,15 +23,18 @@ define(
 
         template: layout
 
-    ,   regions: 
-        {
+    ,   events: {
+            'click .overlay': 'toggleOverlay'
+        }
+
+    ,   regions: {
             'header': '#header'
         ,   'notification': '#notification'
         ,   'content': '#content'
         ,   'footer': '#footer'
         }
 
-    ,   childViews:{
+    ,   childViews: {
             'header': function(){
                 return new HeaderView({
                     application: this.options && this.options.application
@@ -45,13 +45,18 @@ define(
                     application: this.options && this.options.application
                 });
             }
-    }
+        }
 
-    ,   templateContext()
-        {
-            return{
-                name: 'sohan'
+    ,   toggleOverlay: function(e,doHide) {
+            var $overlay = this.$('.overlay');
+
+            if( jQuery(e.target).hasClass('overlay') ){
+                this.targetEl.trigger('click');
+                return;
             }
+            this.targetEl = jquery(e.target);
+            
+            doHide ? $overlay.removeClass('show') : $overlay.addClass('show');
         }
 
     });
