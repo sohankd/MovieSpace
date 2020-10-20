@@ -1,2 +1,16 @@
-$color-primary: black;
-$color-secondary: #00FEC1;
+$color-raisin-black: #171A21;
+$color-sandal: #F7B538;
+$color-rofous: #A50104;
+$color-sea-green: #00FFCD;
+$color-spring-green: #20FC8F;
+$color-liberty: #5158BB;
+$color-light-coral: #FF6B6C;
+$color-gold: #FFd300;
+
+$color-primary: $color-liberty;
+$color-secondary: $color-gold;
+$color-theme-background: $color-raisin-black;
+
+$border-radius-normal: 5px;
+$border-radius-medium: 100vh;
+$border-radius-circle: 50%;
