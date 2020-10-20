@@ -1,0 +1,43 @@
+<div class="search-result-wrapper {{#if showPopup}}open{{/if}}" tabindex="-1">
+    <p class="loading {{#unless isLoading}}hide{{/unless}}">Loading...</p>
+    {{#if results}}
+        {{#each results}}
+        <a href="{{id}}" class="search-result-item">
+            <div class="search-result-item-image-wrapper">
+                {{#if poster_path}}
+                <img src="{{getTmdbImageLink poster_path 'w154'}}" alt="{{title}}">
+                {{else}}
+                <img src="{{getTmdbImageLink profile_path 'w154'}}" alt="{{title}}">
+                {{/if}}
+            </div>
+            <div class="search-result-item-details-wrapper">
+                <p class="search-result-item-title">
+                {{#if title}}
+                    {{title}}
+                {{else}}
+                    {{name}}
+                {{/if}}
+                </p>
+                <p class="search-result-item-media-type">in <strong>{{media_type}}</strong></p>
+                {{#ifEquals media_type 'person'}}
+                    {{#if popularity}}
+                    <p class="search-result-item-rating">Popularity: {{popularity}}</p>
+                    {{/if}}
+                    {{#if known_for_department}}
+                    <p class="search-result-item-dept">Known for: {{known_for_department}}</p>
+                    {{/if}}
+                {{else}}
+                <p class="search-result-item-rating">Rating: {{vote_average}}</p>
+                {{/ifEquals}}
+            </div>
+        </a>
+        {{/each}}
+        {{#if total_results}}
+        <a href="#" class="search-result-count">See all {{total_results}} results</a>
+        {{/if}}
+    {{/if}}
+
+    {{#ifEquals total_results 0}}
+    <p class="no-search-result">No Result Found</p>
+    {{/ifEquals}}
+</div>
