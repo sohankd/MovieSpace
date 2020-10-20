@@ -29,4 +29,8 @@ define('Handlebars.Extra'
         return url; 
     });
     
+    Handlebars.registerHelper('ifEquals',function(variable,param,options){
+        return variable == param ? options.fn(this) : options.inverse(this); 
+    });
+    
 });
