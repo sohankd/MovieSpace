@@ -18,6 +18,7 @@
     ,   "Modules/ProductDetails"
     ,   "Modules/Vendors.Extras"
     ,   "Modules/Models"
+    ,   "Modules/GlobalViews"
     ,   "vendor/backbone"
     ,   "vendor/backbone.radio"
     ,   "vendor/bootstrap"

@@ -1,0 +1,15 @@
+<svg viewBox="0 0 40 40">
+    <circle class="media-rating-circle" cx="20" cy="20" r="{{radius}}"></circle>
+    <circle class="media-rating-circle-segment" cx="20" cy="20"
+        r="{{radius}}"
+        stroke-dasharray="{{segment}}"
+    >
+    </circle>
+    {{#if show_text}}
+    <g class="media-rating-text-wrapper">
+        <text x="50%" y="50%" class="media-rating-avg-rating">
+            <tspan x="50%">{{avg_rating}}</tspan>
+        </text>
+    </g>
+    {{/if}}
+</svg>

@@ -1,0 +1,24 @@
+@keyframes animate-circle{
+    to { stroke-dasharray: 0 100; }
+}
+
+.media-rating-circle{
+    fill: transparent;
+    stroke-width: 3;
+    stroke-linecap: round;
+    stroke: $color-raisin-black;
+}
+.media-rating-circle-segment{
+    @extend .media-rating-circle;
+    stroke: $color-secondary;
+    animation: animate-circle 1.5s reverse;
+    transform: rotate(-90deg);
+    transform-origin: center;
+}
+.media-rating-avg-rating{
+    text-anchor: middle;
+    font-size: 0.75rem;
+    font-weight: 600;
+    transform: translateY(10%);
+    fill: $color-secondary;
+}
