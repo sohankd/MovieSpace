@@ -1,11 +1,11 @@
-define('Movie.Model'
+define('Genre.Model'
 ,   [ 'Base.Model' ]
 ,   function( BaseModel ) {
     
     'use strict';
     
     return BaseModel.extend({
-        fragment: 'movie'
+        fragment: 'genre'
 
     });
 });

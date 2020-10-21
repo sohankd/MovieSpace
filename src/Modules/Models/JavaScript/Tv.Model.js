@@ -1,24 +1,11 @@
 define('Tv.Model'
-,   [
-        'Configuration'
-    ,   'backbone'
-    ]
-,   function
-    (
-        Configuration
-    ,   Backbone
-    )
-{
+,   [ 'Base.Model' ]
+,   function( BaseModel ) {
+    
     'use strict';
     
-    return Backbone.Model.extend({
+    return BaseModel.extend({
+        fragment: 'tv'
 
-        url: function()
-        {
-            return Configuration.tmdb['base_uri'] + 'tv/';
-        }
-
-    ,   includeKey: true
-    
     });
 });

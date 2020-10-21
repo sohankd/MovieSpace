@@ -1,24 +1,11 @@
 define('People.Model'
-,   [
-        'Configuration'
-    ,   'backbone'
-    ]
-,   function
-    (
-        Configuration
-    ,   Backbone
-    )
-{
+,   [ 'Base.Model' ]
+,   function( BaseModel ) {
+    
     'use strict';
     
-    return Backbone.Model.extend({
+    return BaseModel.extend({
+        fragment: 'person'
 
-        url: function()
-        {
-            return Configuration.tmdb['base_uri'] + 'person/';
-        }
-
-    ,   includeKey: true
-    
     });
 });

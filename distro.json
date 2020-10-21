@@ -31,13 +31,14 @@
         "folder": "JavaScript"
     ,   "exportFile": "javascript.js"
     ,   "entrypoints":[
-            "Home"
-        ,   "ajaxSetup"
-        ,   "Error.Management"
-        ,   "bootstrap.custom"
-        ,   "Marionette.View"
+            "ajaxSetup"
         ,   "Backbone.Model"
+        ,   "Backbone.Collection"
+        ,   "bootstrap.custom"
+        ,   "Error.Management"
         ,   "Handlebars.Extra"
+        ,   "Home"
+        ,   "Marionette.View"
         ,   "ProductDetails"
         ]
     ,   "amdConfig":{
