@@ -1,4 +1,4 @@
-define('Base.Model'
+define('Base.Collection'
 ,   [
         'Configuration'
     ,   'backbone'

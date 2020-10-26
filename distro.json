@@ -19,6 +19,7 @@
     ,   "Modules/Vendors.Extras"
     ,   "Modules/Models"
     ,   "Modules/GlobalViews"
+    ,   "Modules/MediaCollections"
     ,   "vendor/backbone"
     ,   "vendor/backbone.radio"
     ,   "vendor/bootstrap"
@@ -40,6 +41,7 @@
         ,   "Handlebars.Extra"
         ,   "Home"
         ,   "Marionette.View"
+        ,   "MediaCollections"
         ,   "ProductDetails"
         ]
     ,   "amdConfig":{
