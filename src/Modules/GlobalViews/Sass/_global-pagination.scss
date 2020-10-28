@@ -1,0 +1,50 @@
+.global-pagination-wrapper{
+    @extend .pagination;
+    @extend .justify-content-end;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+.global-pagination-page{
+    @extend .page-item;
+    &.disabled .global-pagination-page-link{
+        background-color: $global-pagination-page-link-background-color;
+        border-color: $global-pagination-page-link-border-color;
+        color: $global-pagination-page-link-color-disabled;
+    }
+    &.active .global-pagination-page-link{
+        background-color: $global-pagination-page-link-background-color-active;
+        border-color: $global-pagination-page-link-border-color;
+        color: $global-pagination-page-link-color-active;
+    }
+}
+.global-pagination-page-link{
+    @extend .page-link;
+    background-color: $global-pagination-page-link-background-color;
+    border-color: $global-pagination-page-link-border-color;
+    color: $global-pagination-page-link-color;
+
+    &:hover{
+        background-color: $global-pagination-page-link-background-color;
+        color: $global-pagination-page-link-color-active;
+        border-color: $global-pagination-page-link-border-color;
+    }
+    &:focus{
+        outline: none;
+    }
+}
+.global-pagination-load-more-button-wrapper{
+    display: flex;
+    justify-content: center;
+}
+.global-pagination-load-more-button{
+    @extend .btn;
+    @extend .col-sm-2;
+    font-size: 1.27rem;
+    background-color: $color-theme-background;
+    border-color: #333333;
+    color: $color-secondary;
+
+    &:focus{
+        box-shadow: 0 0 3px 2px rgba($color-secondary, 0.5);
+    }
+}

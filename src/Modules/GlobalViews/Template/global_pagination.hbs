@@ -1,0 +1,31 @@
+{{#if use_load_btn}}
+<div class="global-pagination-load-more-button-wrapper">
+    {{#if showLoadMoreButton}}
+    <button type="button" class="global-pagination-load-more-button" data-action="change-page">Load More</button>
+    {{/if}}
+</div>
+{{else}}
+<ul class="global-pagination-wrapper">
+    {{#if showEndPageLinks}}
+    <li class="global-pagination-page {{#ifEquals current_page 1}}disabled{{/ifEquals}}">
+        <a href="?page=1" class="global-pagination-page-link" aria-label="First">
+            <span aria-hidden="true">&laquo;</span>
+            <span class="sr-only">First</span>
+        </a>
+    </li>
+    {{/if}}
+    {{#each pages}}
+    <li class="global-pagination-page {{#if isActive}}active{{/if}} {{#if isDisabled}}disabled{{/if}}">
+        <a href="?page={{page}}" class="global-pagination-page-link">{{text}}</a>
+    </li>
+    {{/each}}
+    {{#if showEndPageLinks}}
+    <li class="global-pagination-page {{#if disableEndPageLink}}disabled{{/if}}">
+        <a href="?page={{total_pages}}" class="global-pagination-page-link" aria-label="Last">
+            <span aria-hidden="true">&raquo;</span>
+            <span class="sr-only">Last</span>
+        </a>
+    </li>
+    {{/if}}
+</ul>
+{{/if}}

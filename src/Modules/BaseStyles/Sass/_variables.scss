@@ -14,3 +14,13 @@ $color-theme-background: $color-raisin-black;
 $border-radius-normal: 5px;
 $border-radius-medium: 100vh;
 $border-radius-circle: 50%;
+
+// Pagination
+$global-pagination-page-link-color: #ffffff;
+$global-pagination-page-link-color-disabled: #737373;
+$global-pagination-page-link-color-active: $color-secondary;
+
+$global-pagination-page-link-background-color: #272727;
+$global-pagination-page-link-background-color-active: #1d1d1d;
+
+$global-pagination-page-link-border-color: #353535;
