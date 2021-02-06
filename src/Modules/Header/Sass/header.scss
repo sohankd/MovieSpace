@@ -237,12 +237,16 @@ nav{
     color: #f1f1f1;
 }
   
-.sidenav .closebtn {
+.sidenav a.closebtn {
     position: absolute;
     top: 0;
     right: 25px;
     font-size: 36px;
     margin-left: 50px;
+    cursor: pointer;
+    &:hover{
+        color: #fff;
+    }
 }
   
 .hide{

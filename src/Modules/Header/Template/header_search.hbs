@@ -2,7 +2,7 @@
     <p class="loading {{#unless isLoading}}hide{{/unless}}">Loading...</p>
     {{#if results}}
         {{#each results}}
-        <a href="{{id}}" class="search-result-item">
+        <a href="{{media_type}}/{{id}}" class="search-result-item">
             <div class="search-result-item-image-wrapper">
                 {{#if poster_path}}
                 <img src="{{getTmdbImageLink poster_path 'w154'}}" alt="{{title}}">

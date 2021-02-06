@@ -2,7 +2,7 @@ define('Header.View',
     [
         'Marionette'
     ,   'Header.Search.View'
-    ,   'Search.Model'
+    ,   'Search.Collection'
     ,   'text!src/Modules/Header/Template/header.hbs'
     ,   'jquery'
     ]
@@ -10,7 +10,7 @@ define('Header.View',
     (
         Marionette
     ,   HeaderSearchView
-    ,   SearchModel
+    ,   SearchCollection
     ,   header_tpl
     ,   jQuery
     )
@@ -35,7 +35,7 @@ define('Header.View',
         }
 
     ,   initialize: function(){
-            this.model = new SearchModel();
+            this.collection = new SearchCollection();
             var _this = this;
 
             jQuery(document).on('mousedown keydown blur',function(e){
@@ -51,7 +51,7 @@ define('Header.View',
             'Search.View': function(){
                 return new HeaderSearchView({
                     application: this.getOption('application')
-                ,   model: this.model
+                ,   collection: this.collection
                 ,   isLoading: this.isLoading
                 ,   showPopup: this.showPopup
                 })
@@ -78,7 +78,7 @@ define('Header.View',
             }
         }
         
-    ,   searchHandler: function(e){
+    ,   searchHandler: _.debounce(function(e){
             var $el = this.$(e.target)
             ,   query = $el.val()
             ,   _this = this;
@@ -86,15 +86,12 @@ define('Header.View',
             query ? this.$('.input-reset-button').addClass('show') : this.$('.input-reset-button').removeClass('show');
 
             if(query && query.length >= 2){
-                this.model.clear();
+                this.collection.reset([]);
                 this.isLoading = true;
                 this.showPopup = true;
-                this.isLoading ? this.renderChildView('Search.View') : (void 0);
-                
-                if(this.prev_request){
-                    this.prev_request.abort();
-                }
-                this.prev_request = this.model.fetch({
+                this.isLoading && this.renderChildView('Search.View');
+
+                this.collection.fetch({
                     data: { query: query }
                 ,   success: function(){
                         _this.isLoading = false;
@@ -102,7 +99,7 @@ define('Header.View',
                     }
                 });
             }
-        }
+        }, 400)
 
     ,   resetButtonHandler: function(e){
             this.$(e.currentTarget).removeClass('show');

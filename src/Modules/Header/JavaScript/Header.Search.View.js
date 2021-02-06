@@ -15,16 +15,12 @@ define('Header.Search.View'
 
         template: header_search
 
-    ,   initialize: function(){
-            this.model = this.getOption('model');
-        }
-
     ,   templateContext: function(){
             return{
                 isLoading: this.getOption('isLoading')
             ,   showPopup: this.getOption('showPopup')
-            ,   results: _.first(this.model.get('results'),3)
-            ,   total_results: this.model.get('total_results')
+            ,   results: _.first(this.collection.toJSON(), 3)
+            ,   total_results: this.collection['total_results']
             };
         }
     });
