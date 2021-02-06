@@ -3,6 +3,7 @@ define('Header.View',
         'Marionette'
     ,   'Header.Search.View'
     ,   'Search.Collection'
+    ,   'backbone'
     ,   'text!src/Modules/Header/Template/header.hbs'
     ,   'jquery'
     ]
@@ -11,6 +12,7 @@ define('Header.View',
         Marionette
     ,   HeaderSearchView
     ,   SearchCollection
+    ,   Backbone
     ,   header_tpl
     ,   jQuery
     )
@@ -24,8 +26,7 @@ define('Header.View',
     ,   tagName: 'nav'
     
     ,   events: {
-            'click [data-toggle="collapse"]': 'collapseSubmenus'
-        ,   'click [data-toggle="push"]': 'togglePushPanel'
+            'click [data-toggle="push"]': 'togglePushPanel'
         ,   'input [name="search-bar"]': 'searchHandler'
         ,   'click .input-reset-button': 'resetButtonHandler'
         }
@@ -45,6 +46,10 @@ define('Header.View',
                     return;
                 _this.destroySearchView();
             });
+            // Close the push-panel on view update.
+            Backbone.on('pathchange', function(){
+                this.togglePushPanel(null, true);
+            }, this);
         }
 
     ,   childViews: {
@@ -58,23 +63,23 @@ define('Header.View',
             }
         }
 
-    ,   togglePushPanel: function(e){
-            var $el = this.$(e.currentTarget)
+    ,   togglePushPanel: function(e, doHide){
+            var $el = doHide == true ? this.$('[data-toggle="push"]') : this.$(e.currentTarget)
             ,   $target = this.$($el.data('target'))
             ,   $related_els = this.$('[data-target="'+$el.data('target')+'"]')
             ,   layout = this.getOption('application').getLayout();
             
-            if($target.hasClass('open')){
+            if($target.hasClass('open') || doHide == true){
                 $el.removeClass('pushed');
                 $related_els.removeClass('pushed');
                 $target.removeClass('open');
-                layout.toggleOverlay(e,true);
+                layout.toggleOverlay(e, true);
             }
             else{
                 $el.addClass('pushed');
                 $related_els.addClass('pushed');
                 $target.addClass('open');
-                layout.toggleOverlay(e,false);
+                layout.toggleOverlay(e, false);
             }
         }
         
