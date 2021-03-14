@@ -1,11 +1,13 @@
 define('Global.Pagination.View'
 ,   [
         'text!src/Modules/GlobalViews/Template/global_pagination.hbs'
+    ,   'Url'
     ,   'Marionette'
     ]
 ,   function
     (
         global_pagination_tpl
+    ,   UrlParse
     ,   Marionette
     )
 {
@@ -17,7 +19,8 @@ define('Global.Pagination.View'
     ,   template: global_pagination_tpl
         
     ,   templateContext: function() {
-            var current_page = this.getOption('currentPage') || 0
+            var url = new UrlParse(location.href)
+            ,   current_page = this.getOption('currentPage') || parseInt(url.getParam('page')) || 1
             ,   total_pages = this.getOption('totalPages') || 0
             ,   total_results = this.getOption('totalResults') || 0
             ,   use_load_btn = this.getOption('useLoadButton') || false
@@ -48,6 +51,7 @@ define('Global.Pagination.View'
             ,   showEndPageLinks: showEndPageLinks
             ,   disableEndPageLink: current_page == total_pages
             ,   showLoadMoreButton: current_page != total_pages
+            ,   fragment: url.pathname
             }
         }
     });    

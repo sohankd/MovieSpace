@@ -8,7 +8,7 @@
 <ul class="global-pagination-wrapper">
     {{#if showEndPageLinks}}
     <li class="global-pagination-page {{#ifEquals current_page 1}}disabled{{/ifEquals}}">
-        <a href="?page=1" class="global-pagination-page-link" aria-label="First">
+        <a href="{{fragment}}?page=1" class="global-pagination-page-link" aria-label="First">
             <span aria-hidden="true">&laquo;</span>
             <span class="sr-only">First</span>
         </a>
@@ -16,12 +16,12 @@
     {{/if}}
     {{#each pages}}
     <li class="global-pagination-page {{#if isActive}}active{{/if}} {{#if isDisabled}}disabled{{/if}}">
-        <a href="?page={{page}}" class="global-pagination-page-link">{{text}}</a>
+        <a href="{{../fragment}}?page={{page}}" class="global-pagination-page-link">{{text}}</a>
     </li>
     {{/each}}
     {{#if showEndPageLinks}}
     <li class="global-pagination-page {{#if disableEndPageLink}}disabled{{/if}}">
-        <a href="?page={{total_pages}}" class="global-pagination-page-link" aria-label="Last">
+        <a href="{{fragment}}?page={{total_pages}}" class="global-pagination-page-link" aria-label="Last">
             <span aria-hidden="true">&raquo;</span>
             <span class="sr-only">Last</span>
         </a>

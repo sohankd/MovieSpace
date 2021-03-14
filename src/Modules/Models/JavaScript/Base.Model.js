@@ -2,14 +2,14 @@ define('Base.Model'
 ,   [
         'Configuration'
     ,   'backbone'
-    ,   'Utils'
+    ,   'Url'
     ,   'underscore'
     ]
 ,   function
     (
         Configuration
     ,   Backbone
-    ,   Utils
+    ,   UrlParse
     ,   _
     )
 {
@@ -19,7 +19,9 @@ define('Base.Model'
         includeKey: true
 
     ,   url: function(path) {
-            return Utils.appendToUrl(Configuration.tmdb['base_uri'], [this.fragment, path], true);
+            var fragment = this.fragment + (path ? '/'+ path : '')
+            ,   url = new UrlParse(fragment, Configuration.tmdb['base_uri']);
+            return url.toString();
         }
 
     ,   preinitialize: function(){

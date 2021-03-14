@@ -20,6 +20,8 @@ define('MediaCollections.Router'
         routes: {
             'movie': 'showMovieList'
         ,   'tv': 'showTvList'
+        ,   'movie?*query': 'showMovieList'
+        ,   'tv?*query': 'showTvList'
         }
 
     ,   initialize: function(options) {
@@ -44,13 +46,15 @@ define('MediaCollections.Router'
             });
         }
 
-    ,   showMovieList: function() {
-            var collection = new MediaCollection(null, {path: 'movie'});
+    ,   showMovieList: function(query) {
+            var collection = new MediaCollection();
+            collection.setUrl(`movie${query ? '?' + query : ''}`);
             this.showListPage(collection, 'movie')
         }
     
-    ,   showTvList: function() {
-            var collection = new MediaCollection(null, {path: 'tv'});
+    ,   showTvList: function(query) {
+            var collection = new MediaCollection();
+            collection.setUrl(`tv${query ? '?' + query : ''}`);
             this.showListPage(collection, 'tv')
         }
     })

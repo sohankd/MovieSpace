@@ -2,14 +2,14 @@ define('Base.Collection'
 ,   [
         'Configuration'
     ,   'backbone'
-    ,   'Utils'
+    ,   'Url'
     ,   'underscore'
     ]
 ,   function
     (
         Configuration
     ,   Backbone
-    ,   Utils
+    ,   UrlParse
     ,   _
     )
 {
@@ -19,13 +19,13 @@ define('Base.Collection'
         includeKey: true
 
     ,   url: function(path) {
-            return Utils.appendToUrl(Configuration.tmdb['base_uri'], [this.fragment, path], true);
+            var fragment = this.fragment + (path ? '/'+ path : '')
+            ,   url = new UrlParse(fragment, Configuration.tmdb['base_uri']);
+            return url.toString();
         }
 
-    ,   preinitialize: function(){
-            var options = _.toArray(arguments)[1];
-            if(options && options.path)
-                this.url = _.bind(this.url, this, options.path);
+    ,   setUrl: function(path){
+            this.url = _.bind(this.url, this, path);
         }
     
     });
