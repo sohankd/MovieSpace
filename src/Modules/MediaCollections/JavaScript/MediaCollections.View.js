@@ -42,7 +42,7 @@ define('MediaCollections.View'
                 return new Marionette.CollectionView({
                     className: 'media-collection-view-container'
                 ,   application: this.getOption('application')
-                ,   collection: this.collection
+                ,   collection: (arguments && arguments[0]) || this.collection
                 ,   childView: MediaCollectionsItemView
                 ,   childViewOptions: {
                         application: this.getOption('application')
@@ -61,21 +61,25 @@ define('MediaCollections.View'
             }
         }
     
-    ,   updateCollection: function(){
+    ,   updateCollection: function(e){
+            // Disbale button & display loader
+            this.$(e.target).prop("disabled", true).addClass('loading-more');
+            
             var _this = this
             ,   collection = this.collection.clone()
-            ,   page = (this.collection['page'] < this.collection['total_pages'] && this.collection['page'] + 1)
             ,   url = new UrlParse(this.collection.url(this.type))
-            ,   params = _.extend(url.getQueryParams(), { page: page });
+            ,   params;
+            this.page = this.page ? (this.page < this.collection['total_pages'] && this.page + 1) : this.collection['page'] + 1;
+            params = _.extend(url.getQueryParams(), { page: this.page });
 
-            page && collection
+            this.page && collection
                     .fetch({ url: url.getAbsolutePath(), data: params })
                     .done(function(response){
-                        _this.collection.add(response.results);
-                        _this.collection['page'] = response.page;
-                        _this.renderChildView('ItemCollectionView');
+                        var viewConstructor = _this.childViews["ItemCollectionView"]
+                        ,   view = viewConstructor.apply(_this, [collection]);
+                        _this.$('#item-collection-container').append(view.render().$el)
                         _this.renderChildView('GlobalPagination');
-                    })
+                    });
         }
     });
 

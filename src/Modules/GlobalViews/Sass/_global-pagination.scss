@@ -47,4 +47,16 @@
     &:focus{
         box-shadow: 0 0 3px 2px rgba($color-secondary, 0.5);
     }
+    &.loading-more{
+        display: none;
+    }
+}
+.icon-loader{
+    @extend .loader;
+    display: none;
+    color: $color-secondary;
+    margin: 0 auto 10px;
+}
+.global-pagination-load-more-button.loading-more + .icon-loader{
+    display: inline-block;
 }
