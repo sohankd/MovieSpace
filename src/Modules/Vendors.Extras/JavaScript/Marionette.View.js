@@ -23,7 +23,7 @@ define(
             var compiled_template = this.template;
 
             if(this.template && !_.isFunction(this.template)){
-                var template = ImageLoader.getLazyloadTemplate(this.template,this);
+                var template = ImageLoader.getLazyloadTemplate(this.template);
                 compiled_template = Handlebars.compile(template);
             }
             else if( this.template && this.template.length > 0 )
@@ -37,7 +37,7 @@ define(
     ,   render: _.wrap(Marionette.View.prototype.render,function(fn) {
             _.bind(fn,this)(); //binds current views 'this' object to render function of Marionette.view  
             this.showChildViews();  //shows all child views declared in childViews object of a view.
-            ImageLoader.lazyLoad(); //This will initiate lazyloading for every view.
+            ImageLoader.lazyLoad.apply(this); //This will initiate lazyloading for every view.
         })
 
     ,   showChildViews: function() {

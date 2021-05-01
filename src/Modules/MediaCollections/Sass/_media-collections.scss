@@ -74,4 +74,10 @@
 }
 .media-collection-media-image{
     max-width: 100%;
+    &[data-src]{
+        min-height: 150px;
+        @include media-breakpoint-up(sm){
+            min-height: 250px;
+        }
+    }
 }

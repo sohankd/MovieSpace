@@ -30,7 +30,8 @@ define('ImageLoader'
     }
 
 ,   lazyLoad = function(){
-        var lazyImages = [].slice.call(document.querySelectorAll("img[data-image-status='pending']"));
+        var el = this.el || document
+        ,   lazyImages = [].slice.call(el.querySelectorAll("img[data-image-status='pending']"));
 
         if ("IntersectionObserver" in window) {
             let lazyImageObserver = new IntersectionObserver(function(entries, observer) {
@@ -38,8 +39,8 @@ define('ImageLoader'
                     if (entry.isIntersecting) {
                         let lazyImage = entry.target;
                         lazyImage.setAttribute('src',lazyImage.dataset.src || '');
-                        lazyImage.setAttribute('srcset',lazyImage.dataset.srcset || '');
-                        lazyImage.setAttribute('data-image-status','done');
+                        lazyImage.dataset.srcset && lazyImage.setAttribute('srcset',lazyImage.dataset.srcset || '');
+                        lazyImage.removeAttribute('data-image-status');
                         lazyImageObserver.unobserve(lazyImage);
                     }
                 });
@@ -47,9 +48,12 @@ define('ImageLoader'
 
             lazyImages.forEach(function(lazyImage) {
                 lazyImageObserver.observe(lazyImage);
-                lazyImage.onerror = function(){
-                    this.setAttribute('src','src/img/no_image.png')
-                }
+                lazyImage.addEventListener('load', function(){
+                    lazyImage.removeAttribute('data-src');
+                });
+                lazyImage.addEventListener('error', function(){
+                    this.setAttribute('src','src/img/no_image.png');
+                });
             });
         }
         else {
