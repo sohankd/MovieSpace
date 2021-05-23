@@ -2,6 +2,10 @@
     @extend .fas;
     @extend .fa-chart-line;
 }
+.icon-filter{
+	@extend .fas;
+    @extend .fa-filter;
+}
 
 .loader,
 .loader:before,

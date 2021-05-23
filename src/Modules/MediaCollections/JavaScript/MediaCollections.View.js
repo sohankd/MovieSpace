@@ -5,6 +5,7 @@ define('MediaCollections.View'
     ,   'Global.Pagination.View'
     ,   'Url'
     ,   'Marionette'
+    ,   'backbone'
     ,   'underscore'
     ]
 ,   function
@@ -14,6 +15,7 @@ define('MediaCollections.View'
     ,   GlobalPaginationView
     ,   UrlParse
     ,   Marionette
+    ,   Backbone
     ,   _
     )
 {
@@ -24,11 +26,13 @@ define('MediaCollections.View'
 
     ,   events: {
             'click [data-action="change-page"]': 'updateCollection'
+        ,   'click [data-action="apply"]': 'applyFilters'
         }
 
     ,   initialize: function() {
-            this.genres = this.getOption('genres');
+            this.genreModel = this.getOption('genres');
             this.type = this.getOption('type');
+            this.getFiltersFromUrl();
         }
 
     ,   regions: {
@@ -58,6 +62,41 @@ define('MediaCollections.View'
                 ,   totalPages: this.collection['total_pages']
                 ,   useLoadButton: false
                 });
+            }
+        }
+
+    ,   getFiltersFromUrl: function(){
+            var url = new UrlParse(location.href);
+            this.filters = url.getQueryParams();
+        }
+
+    ,   applyFilters: function(){
+            var selected_genres = this.$('[data-type="genre"]:checked').map(function(){ return this.id; }).get().join(',')
+            ,   filter_fragment = this.$('[data-filter-fragment]').data('filter-fragment');
+
+            Backbone.history.navigate(`${this.type}?${filter_fragment}=${selected_genres}`, {trigger: true});
+        }
+
+    ,   getGenreFilter: function(){
+            var genres = _.clone(this.genreModel.get('genres')) || []
+            ,   selected_genres = this.filters['with_genres'] && this.filters['with_genres'].split(',');
+            
+            selected_genres = _.map(selected_genres, Number);
+            _.each(genres, genre => { genre['isActive'] = selected_genres.indexOf(genre.id) >= 0; });
+
+            return {
+                id: 'genre'
+            ,   label: 'Genres'
+            ,   show: genres && genres.length
+            ,   href: "with_genres"
+            ,   count: selected_genres.length
+            ,   values: genres
+            }
+        }
+
+    ,   templateContext: function(){
+            return{
+                genreFilter: this.getGenreFilter()
             }
         }
     

@@ -1,83 +1,129 @@
-.media-collection-view-container{
-    @extend .row;
-    @include media-breakpoint-down(sm){
-        margin-left: -5px;
-        margin-right: -5px;
-    }
-}
-.media-collection-media-container{
-    @extend .col-md-4;
-    @extend .col-sm-3;
-    padding: 0 10px;
-    margin-bottom: 15px;
-    @include media-breakpoint-up(lg){
-        flex: 0 0 20%;
-        max-width: 20%;
-    }
-    @include media-breakpoint-down(xs){
-        flex: 0 0 50%;
-        max-width: 50%;
-        margin-left: 0;
-        margin-right: 0;
-        padding: 5px;
-        margin-bottom: 5px;
-    }
-}
-.media-collection-media-wrapper{
+.genres-filter-container{
     position: relative;
-    padding: 10px;
-    box-shadow: 0 0 1px 1px #333;
-    overflow: hidden;
+    margin-bottom: 15px;
 }
-.media-collection-media-attribute-wrapper{
-    @extend .overlay;
-    top: auto;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    padding: 0 15px;
-    height: 0;
-    display: flex;
-    justify-content: space-between;
+label.genres-filter-icon-wrapper{
+    position: relative;
+    display: inline-flex;
+    color: #fff;
+    font-size: 1.27rem;
+    padding: 5px 15px;
+    border-radius: 5px;
     align-items: center;
-    overflow: hidden;
-    transition: height 0.2s ease-in-out;
-}
-.media-collection-media-rating-view{
-    .media-rating-warpper{
-        min-width: 70px;
-        margin: auto;
-    }
-}
-.media-collection-media-popularity{
-    color: $color-secondary;
-    display: flex;
-    flex-direction: column;
-}
-.media-collection-media-popularity-count{
-    font-size: 1.2rem;
-    font-weight: 600;
-    line-height: normal;
-}
-.media-collection-media-popularity-icon{
-    @extend .icon-line-chart;
-    font-size: 3rem;
-    text-align: center;
-}
-.media-collection-media-wrapper:hover{
-    .media-collection-media-attribute-wrapper{
-        height: 30%;
-    }
-}
-.media-collection-media-link{
-    display: block;
-}
-.media-collection-media-image{
-    max-width: 100%;
-    &[data-src]{
-        min-height: 150px;
-        @include media-breakpoint-up(sm){
-            min-height: 250px;
+    z-index: 5;
+    cursor: pointer;
+    letter-spacing: 1px;
+    &.collapsed{
+        z-index: 0;
+        color: $color-secondary;
+        box-shadow: 0 0 4px 1px #050505;
+        .genres-filter-count{
+            display: inline-block;
         }
     }
+}
+.genres-filter-icon{
+    @extend .icon-filter;
+}
+.genres-filter-text{
+    display: inline-block;
+    margin-left: 5px;
+    font-weight: 600;
+}
+.genres-filter-count{
+    display: none;
+    position: absolute;
+    top: -15px;
+    right: -10px;
+    width: 25px;
+    height: 25px;
+    background: $color-secondary;
+    color: #000;
+    font-size: 1.1rem;
+    line-height: 1;
+    padding: 4px 7px;
+    border-radius: 50%;
+    font-weight: 600;
+}
+.genres-filter-modal{
+    position: absolute;
+    top: -5px;
+    left: 0;
+    z-index: 4;
+    background-color: $color-theme-background;
+    box-shadow: 0 0 4px 1px #050505;
+    border-radius: 5px;
+    &.collapse:not(.show){
+        display: none;
+    }
+    @include media-breakpoint-between(sm, md){
+        width: 50%;
+    }
+    @include media-breakpoint-up(lg){
+        width: 33.333%;
+    }
+}
+.genres-filter-action-wrapper {
+    padding: 5px 7px;
+    border-bottom: 1px solid #050505;
+    text-align: right;
+}
+button.genres-filter-apply-buton {
+    border: none;
+    background: #212630;
+    color: white;
+    padding: 5px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin: 3px 5px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    outline: none;
+}
+.genres-filters-wrapper {
+    padding: 5px 15px;
+    display: flex;
+    flex-flow: row wrap;
+}
+.genres-filter-item{
+    color: #fff;
+    padding: 8px 10px;
+    @include media-breakpoint-up(lg){
+        padding: 5px 10px;
+        width: 50%;
+    }
+}
+.genres-filter-input{
+    display: inline-block;
+    position: relative;
+    &::before{
+        content: '';
+        width: 20px;
+        height: 20px;
+        position: absolute;
+        left: -2px;
+        background-color: #fff;
+        top: -1px;
+        border: 1px solid #212630;
+        border-radius: 3px;
+    }
+    &:checked{
+        &::before{
+            background-color: #212630;
+            box-shadow: 0 0 3px 2px #050505;
+        }
+        &::after{
+            content: '\02713';
+            position: absolute;
+            color: #fff;
+            top: 1px;
+            left: 1px;
+            line-height: 1;
+            font-weight: 600;
+        }
+    }
+}
+.genres-filter-name{
+    display: inline-block;
+    margin-left: 10px;
 }
