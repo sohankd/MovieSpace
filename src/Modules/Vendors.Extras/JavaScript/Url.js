@@ -16,6 +16,7 @@ define('Url'
 
         setParam(key, value){
             this.searchParams.set(key, value);
+            return this;
         }
 
         removeParams(keys, deleteAll){
@@ -26,7 +27,8 @@ define('Url'
         }
 
         getQueryString(){
-            return this.searchParams.toString() ? '?' + this.searchParams.toString() : '';
+            var decode_query = decodeURIComponent(this.searchParams.toString())
+            return decode_query ? '?' + decode_query : '';
         }
 
         getQueryParams(){
@@ -35,6 +37,10 @@ define('Url'
                 params[key] = value;
             });
             return params;
+        }
+
+        getFragment(){
+            return this.pathname + this.getQueryString();
         }
     }
 

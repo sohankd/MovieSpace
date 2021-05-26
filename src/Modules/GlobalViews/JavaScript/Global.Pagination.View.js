@@ -26,19 +26,28 @@ define('Global.Pagination.View'
             ,   use_load_btn = this.getOption('useLoadButton') || false
             ,   showEndPageLinks = this.getOption('showEndPageLinks') || true
             ,   pages = []
-            ,   steps = 2;
+            ,   steps = current_page == 1 || current_page == total_pages ? 2 : 1;
 
             if(!use_load_btn) {
                 var page_start_index = current_page > steps ? current_page - steps : 1
                 ,   pages_remain = total_pages - current_page
                 ,   page_last_index = pages_remain > steps ? current_page + steps : total_pages;
 
-                for(var i = page_start_index; i <= page_last_index; i++){
+                for(var i = 1; i <= total_pages; i++){
                     pages.push({
                         page: i
                     ,   text:i
                     ,   isActive: current_page == i
+                    ,   href: url.setParam('page', i).getFragment()
+                    ,   isFirstPage: showEndPageLinks && (i == 1 && page_start_index != 1)
+                    ,   isLastPage: showEndPageLinks && (i == total_pages && page_last_index != total_pages)
                     });
+                    if(page_last_index !== total_pages && i == page_last_index)
+                        i = total_pages - 1;
+                    else if(i == 1 && i != page_start_index)
+                        i = page_start_index - 1;
+                    else if(i == total_pages)
+                        url.removeParams('page', true);
                 }
             }
             
@@ -48,11 +57,9 @@ define('Global.Pagination.View'
             ,   total_results: total_results
             ,   use_load_btn: use_load_btn
             ,   pages: pages
-            ,   showEndPageLinks: showEndPageLinks
-            ,   disableEndPageLink: current_page == total_pages
             ,   showLoadMoreButton: current_page != total_pages
-            ,   fragment: url.pathname
+            ,   showPagination: total_pages > 1
             }
         }
-    });    
+    });
 });
