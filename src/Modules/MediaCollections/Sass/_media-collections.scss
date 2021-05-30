@@ -1,12 +1,21 @@
-.genres-filter-container{
+.media-collections-sort-and-filter-wrapper{
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
     position: relative;
-    margin-bottom: 15px;
+}
+.genres-filter-container{
+    display: inline-block;
+    margin: 0 12px 10px 0;
+    @include media-breakpoint-up(sm){
+        margin-bottom: 15px;
+    }
 }
 label.genres-filter-icon-wrapper{
     position: relative;
     display: inline-flex;
     color: #fff;
-    font-size: 1.27rem;
+    font-size: 1.1rem;
     padding: 5px 15px;
     border-radius: 5px;
     align-items: center;
@@ -126,4 +135,11 @@ button.genres-filter-apply-buton {
 .genres-filter-name{
     display: inline-block;
     margin-left: 10px;
+}
+[data-view="SortBy.View"]{
+    display: inline-block;
+    margin-bottom: 8px;
+    @include media-breakpoint-up(sm){
+        margin-bottom: 15px;
+    }
 }

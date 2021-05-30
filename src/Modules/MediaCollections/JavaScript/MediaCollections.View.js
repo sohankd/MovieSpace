@@ -2,6 +2,7 @@ define('MediaCollections.View'
 ,   [
         'text!src/Modules/MediaCollections/Template/media_collections.hbs'
     ,   'MediaCollections.Item.View'
+    ,   'Global.SortBy.View'
     ,   'Global.Pagination.View'
     ,   'Url'
     ,   'Marionette'
@@ -12,6 +13,7 @@ define('MediaCollections.View'
     (
         media_collections_tpl
     ,   MediaCollectionsItemView
+    ,   GlobalSortByView
     ,   GlobalPaginationView
     ,   UrlParse
     ,   Marionette
@@ -36,13 +38,19 @@ define('MediaCollections.View'
         }
 
     ,   regions: {
-            'FilterView': '[data-view="Filter.View"]'
+            'SortByView': '[data-view="SortBy.View"]'
         ,   'ItemCollectionView': '[data-view="Items.Collection.View"]'
         ,   'GlobalPagination': '[data-view="Pagination.View"]'
         }
 
     ,   childViews: {
-            "ItemCollectionView": function() {
+            "SortByView": function(){
+                return new GlobalSortByView({
+                    application: this.getOption('application')
+                })
+            }
+
+        ,   "ItemCollectionView": function() {
                 return new Marionette.CollectionView({
                     className: 'media-collection-view-container'
                 ,   application: this.getOption('application')
@@ -72,9 +80,10 @@ define('MediaCollections.View'
 
     ,   applyFilters: function(){
             var selected_genres = this.$('[data-type="genre"]:checked').map(function(){ return this.id; }).get().join(',')
-            ,   filter_fragment = this.$('[data-filter-fragment]').data('filter-fragment');
+            ,   filter_fragment = this.$('[data-filter-fragment]').data('filter-fragment')
+            ,   url = this.type + (selected_genres ? `?${filter_fragment}=${selected_genres}` : '');
 
-            Backbone.history.navigate(`${this.type}?${filter_fragment}=${selected_genres}`, {trigger: true});
+            Backbone.history.navigate(url, true);
         }
 
     ,   getGenreFilter: function(){

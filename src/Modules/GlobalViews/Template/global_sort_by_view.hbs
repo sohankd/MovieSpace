@@ -1,0 +1,12 @@
+{{#if sortByOptions}}
+<label class="global-sortBy-options-order-label" for="order">
+    <input class="global-sortBy-options-order-input" type="checkbox" name="order" id="order" data-action="changeSortOrder" {{#if isDesc}}checked{{/if}}>
+    <i class="icon-sort-up"></i>
+    <i class="icon-sort-down"></i>
+</label>
+<select class="global-sortBy-options-input-list" name="sort" id="sort_by" data-action="updateSorting">
+    {{#each sortByOptions}}
+    <option value="{{id}}" class="global-sortBy-option" {{#if isActive}}selected{{/if}}>{{label}}</option>
+    {{/each}}
+</select>
+{{/if}}
