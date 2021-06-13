@@ -1,10 +1,10 @@
 <li class="logo-wrapper">
     <a class="logo-container" href="#"><img src="LocalDist/logo.png" alt=""></a>
 </li>
-<li class="search-bar-wrapper">
-    <form>
-        <label for="search-bar">
-            <input type="search" name="search-bar" id="search-bar" placeholder="Search for movies, tv shows, people">
+<li class="search-bar-wrapper {{#if isMobile}}collapse{{/if}}">
+    <form id="website-search-form">
+        <label class="search-bar-label" for="search">
+            <input class="global-search-input" type="search" name="search" id="search" placeholder="Search for movies, tv shows, people">
             <button class="input-reset-button" type="reset">
                 <i class="remove-icon"></i>
             </button>

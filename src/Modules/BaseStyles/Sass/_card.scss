@@ -21,3 +21,11 @@
     @extend .card-text;
     color: #fff;
 }
+
+.card-dark-theme-horizontal{
+    @extend .card;
+    flex-flow: row;
+    background-color: transparent;
+    border: none;
+    height: 100%;
+}

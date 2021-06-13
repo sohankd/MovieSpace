@@ -35,7 +35,7 @@ a:hover{
 }
 
 #header,.main,#footer{
-    padding: 10px;
+    padding: $padding-lv2 $padding-lv2 + 2px;
 }
 
 .notification{

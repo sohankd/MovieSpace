@@ -37,5 +37,14 @@ define('Utils',
                 return baseUrl;
             }
         }
+
+    ,   getDeviceType: function(){
+            if(window.matchMedia('(max-width: 767px)').matches)
+                return 'Mobile';
+            else if(window.matchMedia('(min-width: 768px) and (max-width: 991px)').matches)
+                return 'Tablet';
+            else
+                return 'Desktop';
+        }
     };
 });

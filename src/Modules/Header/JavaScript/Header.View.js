@@ -6,6 +6,7 @@ define('Header.View',
     ,   'backbone'
     ,   'text!src/Modules/Header/Template/header.hbs'
     ,   'jquery'
+    ,   'Utils'
     ]
 ,   function
     (
@@ -15,6 +16,7 @@ define('Header.View',
     ,   Backbone
     ,   header_tpl
     ,   jQuery
+    ,   Utils
     )
 {
     'use strict';
@@ -27,7 +29,8 @@ define('Header.View',
     
     ,   events: {
             'click [data-toggle="push"]': 'togglePushPanel'
-        ,   'input [name="search-bar"]': 'searchHandler'
+        ,   'input [name="search"]': 'searchHandler'
+        ,   'submit #website-search-form': 'formHandler'
         ,   'click .input-reset-button': 'resetButtonHandler'
         }
     
@@ -59,6 +62,7 @@ define('Header.View',
                 ,   collection: this.collection
                 ,   isLoading: this.isLoading
                 ,   showPopup: this.showPopup
+                ,   query: this.query
                 })
             }
         }
@@ -82,6 +86,17 @@ define('Header.View',
                 layout.toggleOverlay(e, false);
             }
         }
+
+    ,   formHandler: function(e){
+            e.preventDefault();
+            var input = e.target['search']
+            ,   query = input.value;
+            this.query = query && query.trim();
+            if(this.query){
+                Backbone.history.navigate(`search?keyword=${encodeURI(this.query)}`, true);
+                input.blur();
+            }
+        }
         
     ,   searchHandler: _.debounce(function(e){
             var $el = this.$(e.target)
@@ -91,13 +106,14 @@ define('Header.View',
             query ? this.$('.input-reset-button').addClass('show') : this.$('.input-reset-button').removeClass('show');
 
             if(query && query.length >= 2){
+                this.query = query.trim();
                 this.collection.reset([]);
                 this.isLoading = true;
                 this.showPopup = true;
                 this.isLoading && this.renderChildView('Search.View');
 
                 this.collection.fetch({
-                    data: { query: query }
+                    data: { query: this.query }
                 ,   success: function(){
                         _this.isLoading = false;
                         _this.renderChildView('Search.View');
@@ -113,6 +129,12 @@ define('Header.View',
     ,   destroySearchView: function(){
             var view = this.getChildView('Search.View');
             view && view.destroy && view.destroy();
+        }
+
+    ,   templateContext: function(){
+            return{
+                isMobile: Utils.getDeviceType() == "Mobile"
+            };
         }
     });
 });
