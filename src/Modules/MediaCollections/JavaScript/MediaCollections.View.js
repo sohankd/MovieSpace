@@ -29,6 +29,7 @@ define('MediaCollections.View'
     ,   events: {
             'click [data-action="change-page"]': 'updateCollection'
         ,   'click [data-action="apply"]': 'applyFilters'
+        ,   'click [data-action="reset"]': 'resetFilters'
         }
 
     ,   initialize: function() {
@@ -83,7 +84,13 @@ define('MediaCollections.View'
             ,   filter_fragment = this.$('[data-filter-fragment]').data('filter-fragment')
             ,   url = this.type + (selected_genres ? `?${filter_fragment}=${selected_genres}` : '');
 
+            this.$el.find('#genre-filter-list').collapse('hide');
             Backbone.history.navigate(url, true);
+        }
+
+    ,   resetFilters: function(){
+            this.$el.find('[data-type="genre"]').prop("checked", false);
+            this.applyFilters();
         }
 
     ,   getGenreFilter: function(){

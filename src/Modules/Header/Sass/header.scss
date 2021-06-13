@@ -40,7 +40,7 @@ nav{
     }
 }
 #search-bar{
-    border: 2px solid lighten($color: $color-theme-background, $amount: 5);
+    border: 2px solid $color-elevation-6dp;
     border-radius: $border-radius-normal;
     padding: 5px 15px;
     width: 100%;
@@ -50,6 +50,10 @@ nav{
 
     &:focus{
         outline: none;
+    }
+
+    &::placeholder{
+        color: darken($color: $color-lightest-grey, $amount: 20);
     }
 }
 .input-reset-button{
@@ -216,7 +220,7 @@ nav{
     right: 0;
     background-color: #111;
     overflow-x: hidden;
-    transition: 0.3s;
+    transition: width 0.3s;
     padding-top: 60px;
 
     &.open{
@@ -228,13 +232,12 @@ nav{
     padding: 8px 8px 8px 32px;
     text-decoration: none;
     font-size: 25px;
-    color: #818181;
+    color: $color-lightest-grey;
     display: block;
-    transition: 0.3s;
 }
   
 .sidenav a:hover {
-    color: #f1f1f1;
+    color: $color-secondary;
 }
   
 .sidenav a.closebtn {
@@ -242,10 +245,13 @@ nav{
     top: 0;
     right: 25px;
     font-size: 36px;
+    color: $color-lightest-grey;
+    opacity: 0.5;
     margin-left: 50px;
     cursor: pointer;
     &:hover{
-        color: #fff;
+        color: $color-secondary;
+        opacity: 1;
     }
 }
   
@@ -255,7 +261,7 @@ nav{
 
 .search-result-wrapper{
     position: absolute;
-    background-color: $color-theme-background;
+    background-color: $color-elevation-6dp;
     left: 0;
     right: 0;
     z-index: 99999;
@@ -284,7 +290,6 @@ nav{
     display: flex;
     padding: 10px;
     border: 1px solid #111;
-    transition: box-shadow .2s;
     margin: 5px;
     margin-bottom: 10px;
 

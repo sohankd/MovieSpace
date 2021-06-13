@@ -10,20 +10,21 @@
         </label>
         <div class="genres-filter-modal collapse" id="genre-filter-list">
             <div class="genres-filter-action-wrapper">
+                <button class="genres-filter-reset-buton" data-action="reset">Reset</button>
                 <button class="genres-filter-apply-buton" data-action="apply">Apply</button>
             </div>
             <div class="genres-filters-wrapper" data-filter-fragment="{{genreFilter.href}}">
                 {{#each genreFilter.values}}
                 <label for="{{id}}" class="genres-filter-item">
                     <input class="genres-filter-input" type="checkbox" name="{{name}}" id="{{id}}" data-type="genre" {{#if isActive}}checked{{/if}}>
-                    <span class="genres-filter-name">{{name}}</span>
+                    <span class="genres-filter-name-badge">{{name}}</span>
                 </label>
                 {{/each}}
             </div>
         </div>
     </div>
     {{/if}}
-    <div data-view="SortBy.View"></div>
+    <div class="media-collection-sortBy-container" data-view="SortBy.View"></div>
 </div>
 <div id="item-collection-container">
     <div data-view="Items.Collection.View"></div>

@@ -1,0 +1,23 @@
+.card-dark-theme{
+    @extend .card;
+    background-color: transparent;
+    border: none;
+    height: 100%;
+}
+.card-dark-theme-body{
+    @extend .card-body;
+    background-color: $color-elevation-1dp;
+    padding: $padding-lv2 $padding-lv3;
+    border-radius: 0 0 $border-radius-normal $border-radius-normal;
+}
+.card-dark-theme-image-container{
+    display: block;
+}
+.card-dark-theme-image{
+    @extend .card-img-top;
+    border-radius: $border-radius-normal $border-radius-normal 0 0;
+}
+.card-dark-theme-text{
+    @extend .card-text;
+    color: #fff;
+}

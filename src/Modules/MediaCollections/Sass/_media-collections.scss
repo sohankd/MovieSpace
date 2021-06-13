@@ -6,26 +6,26 @@
 }
 .genres-filter-container{
     display: inline-block;
-    margin: 0 12px 10px 0;
+    margin: 0 $margin-lv2 + 2px $margin-lv2 0;
     @include media-breakpoint-up(sm){
-        margin-bottom: 15px;
+        margin-bottom: $margin-lv3;
     }
 }
 label.genres-filter-icon-wrapper{
     position: relative;
     display: inline-flex;
     color: #fff;
-    font-size: 1.1rem;
-    padding: 5px 15px;
-    border-radius: 5px;
+    font-size: $font-size-lg;
+    padding: $padding-lv1 $padding-lv3;
+    border-radius: $border-radius-normal;
     align-items: center;
     z-index: 5;
     cursor: pointer;
     letter-spacing: 1px;
     &.collapsed{
         z-index: 0;
-        color: $color-secondary;
-        box-shadow: 0 0 4px 1px #050505;
+        color: $color-raisin-black;
+        background-color: $color-gold;
         .genres-filter-count{
             display: inline-block;
         }
@@ -36,7 +36,7 @@ label.genres-filter-icon-wrapper{
 }
 .genres-filter-text{
     display: inline-block;
-    margin-left: 5px;
+    margin-left: $margin-lv1;
     font-weight: 600;
 }
 .genres-filter-count{
@@ -46,12 +46,13 @@ label.genres-filter-icon-wrapper{
     right: -10px;
     width: 25px;
     height: 25px;
-    background: $color-secondary;
-    color: #000;
-    font-size: 1.1rem;
+    background: $color-elevation-4dp;
+    color: #fff;
+    box-shadow: 0 0 3px 0px #050505;
+    font-size: $font-size-lg;
     line-height: 1;
-    padding: 4px 7px;
-    border-radius: 50%;
+    padding: $padding-lv1 - 1px $padding-lv1 + 2px;
+    border-radius: $border-radius-medium;
     font-weight: 600;
 }
 .genres-filter-modal{
@@ -59,9 +60,9 @@ label.genres-filter-icon-wrapper{
     top: -5px;
     left: 0;
     z-index: 4;
-    background-color: $color-theme-background;
+    background-color: $color-elevation-4dp;
     box-shadow: 0 0 4px 1px #050505;
-    border-radius: 5px;
+    border-radius: $border-radius-normal;
     &.collapse:not(.show){
         display: none;
     }
@@ -73,73 +74,57 @@ label.genres-filter-icon-wrapper{
     }
 }
 .genres-filter-action-wrapper {
-    padding: 5px 7px;
-    border-bottom: 1px solid #050505;
+    padding: $padding-lv1 $padding-lv1 + 2px;
+    border-bottom: 1px solid $color-elevation-1dp;
     text-align: right;
 }
+button.genres-filter-reset-buton,
 button.genres-filter-apply-buton {
     border: none;
-    background: #212630;
-    color: white;
-    padding: 5px 15px;
-    border-radius: 4px;
+    padding: $padding-lv1 $padding-lv3;
+    border-radius: $border-radius-normal;
     cursor: pointer;
-    margin: 3px 5px;
+    margin: $margin-lv1 - 1px $margin-lv1;
     font-weight: 600;
-    letter-spacing: 1px;
+    letter-spacing: 0.03rem;
     outline: none;
 }
+button.genres-filter-apply-buton {
+    background: $color-gold;
+    color: $color-raisin-black;
+}
 .genres-filters-wrapper {
-    padding: 5px 15px;
+    padding: $padding-lv2;
     display: flex;
     flex-flow: row wrap;
 }
 .genres-filter-item{
+    position: relative;
     color: #fff;
-    padding: 8px 10px;
-    @include media-breakpoint-up(lg){
-        padding: 5px 10px;
-        width: 50%;
-    }
+    margin: $margin-lv1;
 }
 .genres-filter-input{
     display: inline-block;
-    position: relative;
-    &::before{
-        content: '';
-        width: 20px;
-        height: 20px;
-        position: absolute;
-        left: -2px;
-        background-color: #fff;
-        top: -1px;
-        border: 1px solid #212630;
-        border-radius: 3px;
-    }
-    &:checked{
-        &::before{
-            background-color: #212630;
-            box-shadow: 0 0 3px 2px #050505;
-        }
-        &::after{
-            content: '\02713';
-            position: absolute;
-            color: #fff;
-            top: 1px;
-            left: 1px;
-            line-height: 1;
-            font-weight: 600;
-        }
+    position: absolute;
+    opacity: 0;
+
+    &:checked + .genres-filter-name-badge{
+        background-color: #e6e6e6;
+        color: $color-raisin-black;
     }
 }
-.genres-filter-name{
+.genres-filter-name-badge{
     display: inline-block;
-    margin-left: 10px;
+    background-color: $color-elevation-8dp;
+    padding: $padding-lv1 $padding-lv2;
+    box-shadow: 0 0 2px 0px #050505;
+    border-radius: $border-radius-normal;
+    cursor: pointer;
 }
-[data-view="SortBy.View"]{
+.media-collection-sortBy-container{
     display: inline-block;
-    margin-bottom: 8px;
+    margin-bottom: $margin-lv2;
     @include media-breakpoint-up(sm){
-        margin-bottom: 15px;
+        margin-bottom: $margin-lv3;
     }
 }

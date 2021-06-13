@@ -1,26 +1,56 @@
 $color-raisin-black: #171A21;
 $color-sandal: #F7B538;
-$color-rofous: #A50104;
-$color-sea-green: #00FFCD;
+$color-sea-green: #14FFEC;
 $color-spring-green: #20FC8F;
 $color-liberty: #5158BB;
 $color-light-coral: #FF6B6C;
-$color-gold: #FFd300;
+$color-gold: #FFD700;
+$color-lightest-grey: #ECECEC;
+$color-dark-grey: #121212;
+$color-elevation-1dp: #1e1e1e;
+$color-elevation-2dp: #222222;
+$color-elevation-3dp: #242424;
+$color-elevation-4dp: #272727;
+$color-elevation-6dp: #2C2C2C;
+$color-elevation-8dp: #2E2E2E;
+$color-elevation-12dp: #323232;
+$color-elevation-16dp: #333333;
+$color-elevation-24dp: #373737;
 
 $color-primary: $color-liberty;
 $color-secondary: $color-gold;
-$color-theme-background: $color-raisin-black;
+$color-theme-background: $color-dark-grey;
 
 $border-radius-normal: 5px;
 $border-radius-medium: 100vh;
 $border-radius-circle: 50%;
+
+// Spacing
+$padding-lv1: 5px;
+$padding-lv2: 10px;
+$padding-lv3: 15px;
+$padding-lv4: 20px;
+
+$margin-lv1: 5px;
+$margin-lv2: 10px;
+$margin-lv3: 15px;
+$margin-lv4: 20px;
+
+// Font Size
+$font-size-xxs: 0.75rem;
+$font-size-xs: 0.87rem;
+$font-size-sm: 0.93rem;
+$font-size-md: 1rem;
+$font-size-lg: 1.1rem;
+$font-size-xl: 1.47rem;
+$font-size-xxl: 2.047rem;
 
 // Pagination
 $global-pagination-page-link-color: #ffffff;
 $global-pagination-page-link-color-disabled: #737373;
 $global-pagination-page-link-color-active: $color-secondary;
 
-$global-pagination-page-link-background-color: #272727;
-$global-pagination-page-link-background-color-active: #1d1d1d;
+$global-pagination-page-link-background-color: $color-elevation-4dp;
+$global-pagination-page-link-background-color-active: $color-elevation-1dp;
 
 $global-pagination-page-link-border-color: #353535;
