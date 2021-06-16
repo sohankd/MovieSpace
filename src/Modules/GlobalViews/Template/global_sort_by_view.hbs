@@ -4,9 +4,17 @@
     <i class="icon-sort-up"></i>
     <i class="icon-sort-down"></i>
 </label>
-<select class="global-sortBy-options-input-list" name="sort" id="sort_by" data-action="updateSorting">
+<div class="global-sortBy-options-dropdown-wrapper dropdown">
+    <button class="global-sortBy-options-dropdown-button dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Sort By</button>
+    <ul class="global-sortBy-options-menu dropdown-menu" aria-labelledby="dropdownMenuButton" name="sort" id="sort_by">
+        {{#each sortByOptions}}
+        <li data-value="{{id}}" class="global-sortBy-option {{#if isActive}}active{{/if}}" data-action="updateSorting">{{label}}</li>
+        {{/each}}
+    </ul>
+</div>
+{{!-- <select class="global-sortBy-options-input-list" name="sort" id="sort_by" data-action="updateSorting">
     {{#each sortByOptions}}
     <option value="{{id}}" class="global-sortBy-option" {{#if isActive}}selected{{/if}}>{{label}}</option>
     {{/each}}
-</select>
+</select> --}}
 {{/if}}
