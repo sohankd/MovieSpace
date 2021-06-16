@@ -8,6 +8,8 @@
             <span  class="media-collection-media-popularity-count">{{popularity_formatted}}</span>
             <span class="media-collection-media-popularity-icon"></span>
         </div>
-        <p class="card-dark-theme-text">{{name}}</p>
+        <p class="card-dark-theme-text">
+            {{#ifEquals media_type 'tv'}}{{name}}{{else}}{{title}}{{/ifEquals}}
+        </p>
     </div>
 </div>

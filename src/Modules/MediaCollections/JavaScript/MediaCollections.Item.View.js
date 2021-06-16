@@ -38,6 +38,7 @@ define('MediaCollections.Item.View'
             return {
                 media_type: this.getOption('media_type')
             ,   popularity_formatted: popularity_formatted
+            ,   media_type: this.getOption('media_type')
             }
         }
 
