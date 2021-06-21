@@ -6,6 +6,10 @@
 	@extend .fas;
     @extend .fa-filter;
 }
+.icon-star{
+	@extend .fas;
+	@extend .fa-star;
+}
 
 .loader,
 .loader:before,

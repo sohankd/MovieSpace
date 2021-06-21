@@ -28,6 +28,7 @@
 }
 .media-collection-media-link{
     @extend .card-dark-theme-image-container;
+    background-color: #161616;
 }
 .media-collection-media-image{
     @extend .card-dark-theme-image;
@@ -42,26 +43,25 @@
 .media-collection-media-attribute-wrapper{
     @extend .card-dark-theme-body;
 }
-.media-collection-media-rating-view{
-    .media-rating-warpper{
-        min-width: 70px;
-        margin: auto;
-    }
-}
-.media-collection-media-popularity{
-    color: $color-secondary;
-    display: flex;
-    flex-direction: column;
-}
-.media-collection-media-popularity-count{
-    font-size: 1.2rem;
-    font-weight: 600;
-    line-height: normal;
-}
-.media-collection-media-popularity-icon{
-    @extend .icon-line-chart;
-    font-size: 3rem;
+.media-collection-media-rating-wrapper{
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    padding: $padding-lv1 - 2px $padding-lv2;
+    margin-bottom: 0;
+    font-weight: bold;
+    font-size: $font-size-lg;
     text-align: center;
+    color: $color-secondary;
+    background-color: rgba(0, 0, 0, 0.8);
+    border-bottom-right-radius: $border-radius-normal;
+}
+.media-collection-media-rating-icon{
+    @extend .icon-star;
+    margin-right: $margin-lv1 - 2px;
+}
+.media-collection-media-rating{
+    display: inline-block;
 }
 .media-collection-media-wrapper:hover{
     .media-collection-media-attribute-wrapper{

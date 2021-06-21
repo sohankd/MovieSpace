@@ -1,13 +1,12 @@
 <div class="media-collection-media-wrapper">
     <a class="media-collection-media-link" href="{{media_type}}/{{id}}">
-        <img class="media-collection-media-image" src="{{getTmdbImageLink poster_path 'w300'}}" alt="{{#if title}}{{title}}{{else}}{{name}}{{/if}}">
+        <img class="media-collection-media-image" src="{{getTmdbImageLink poster_path poster_size}}" alt="{{#if title}}{{title}}{{else}}{{name}}{{/if}}">
     </a>
     <div class="media-collection-media-attribute-wrapper">
-        <div class="media-collection-media-rating-view" data-view="Media.Rating"></div>
-        <div class="media-collection-media-popularity">
-            <span  class="media-collection-media-popularity-count">{{popularity_formatted}}</span>
-            <span class="media-collection-media-popularity-icon"></span>
-        </div>
+        <p class="media-collection-media-rating-wrapper">
+            <i class="media-collection-media-rating-icon"></i>
+            <span class="media-collection-media-rating">{{#ifEquals vote_average undefined}}NA{{else}}{{vote_average}}{{/ifEquals}}</span>
+        </p>
         <p class="card-dark-theme-text">
             {{#ifEquals media_type 'tv'}}{{name}}{{else}}{{title}}{{/ifEquals}}
         </p>
