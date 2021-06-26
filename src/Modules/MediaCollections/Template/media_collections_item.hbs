@@ -5,7 +5,7 @@
     <div class="media-collection-media-attribute-wrapper">
         <p class="media-collection-media-rating-wrapper">
             <i class="media-collection-media-rating-icon"></i>
-            <span class="media-collection-media-rating">{{#ifEquals vote_average undefined}}NA{{else}}{{vote_average}}{{/ifEquals}}</span>
+            <span class="media-collection-media-rating">{{#if rating_avg}}{{rating_avg}}{{/if}}</span>
         </p>
         <p class="card-dark-theme-text">
             {{#ifEquals media_type 'tv'}}{{name}}{{else}}{{title}}{{/ifEquals}}

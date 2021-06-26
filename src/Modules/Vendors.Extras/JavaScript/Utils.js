@@ -46,5 +46,9 @@ define('Utils',
             else
                 return 'Desktop';
         }
+
+    ,   isAbsoluteUrl: function(url){
+            return /(?:^[a-z][a-z0-9+.\-]*:|\/\/)/gi.test(url);
+        }
     };
 });

@@ -1,13 +1,18 @@
 define('Navigator'
-,   [ 'backbone', 'jquery' ]
-,   function( Backbone, jQuery ) {
+,   [ 'backbone', 'jquery', 'Utils' ]
+,   function( Backbone, jQuery, Utils ) {
     
     'use strict';
 
     jQuery(document).on('click','a',function(e){
         e.preventDefault();
-        var url = jQuery(e.currentTarget).attr('href');
-        url && url.trim() && Backbone.history.navigate(url, {trigger: true});
+        var url = jQuery(e.currentTarget).attr('href') && jQuery(e.currentTarget).attr('href').trim()
+        ,   is_abs_url = Utils.isAbsoluteUrl(url)
+        ,   is_target_blank = jQuery(e.currentTarget).attr('target') == "_blank";
+
+        is_abs_url ? window.open(url, is_target_blank ? "_blank" : "") : Backbone.history.navigate(url, {trigger: true});
+        
+        return e;
     });
     // Overwriting pushState() and replaceState() of history object to trigger an custom event.
     // which will help us to add event listeners which will be executed on url change.
