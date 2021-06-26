@@ -1,19 +1,24 @@
 define('Footer.View',
     [
-        'Marionette'
-    ,   'text!src/Modules/Footer/Template/footer.hbs'
+        'text!src/Modules/Footer/Template/footer.hbs'
+    ,   'Marionette'
     ]
 ,   function
     (
-        Marionette
-    ,   footer_tpl
+        footer_tpl
+    ,   Marionette
     )
 {
     'use strict';
     
     return Marionette.View.extend({
-
         template: footer_tpl
+
+    ,   templateContext: function(){
+            return {
+                currentYear: (new Date()).getFullYear()
+            }
+        }
 
     });
 });

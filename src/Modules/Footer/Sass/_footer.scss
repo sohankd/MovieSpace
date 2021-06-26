@@ -1,0 +1,39 @@
+.footer-navigation-tribute-wrapper{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.footer-navigation-link-wrapper{
+    display: inline-flex;
+    align-items: center;
+    flex-flow: row wrap;
+    margin-right: $margin-lv2;
+}
+.footer-navigation-link{
+    display: block;
+    font-size: $font-size-lg;
+    font-weight: 600;
+    color: $color-lightest-grey;
+    padding: $padding-lv2;
+    @include media-breakpoint-up(sm){
+        font-size: $font-size-xl;
+    }
+    &:hover, &:focus{
+        color: $color-secondary;
+    }
+}
+.footer-tribute-website-link{
+    display: block;
+    color: $color-lightest-grey;
+    height: 100px;
+    margin-right: $margin-lv2;
+}
+.footer-tmdb-logo{
+    max-height: 100%;
+}
+.footer-copy-right-wrapper{
+    font-size: $font-size-sm;
+    color: $color-lightest-grey;
+    text-align: center;
+    margin: $margin-lv1 + 2px 0;
+}
