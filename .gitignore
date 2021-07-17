@@ -1,8 +1,9 @@
 /*
 !gulp
-!src/**
+!src
 !package.json
 !distro.json
 !index.html
 !gulpfile.js
 *.zip
+*.json
