@@ -1,87 +1,114 @@
-var {src,dest} = require('gulp')
+let gulp = require('gulp')
 ,   _ = require('underscore')
-,   concat = require('gulp-concat')
 ,   package_manager = require('./package_manager')
-,   requirejsOptimizer = require('gulp-requirejs-optimize')
 ,   distro = require('../distro')
-,   through = require('through')
-,   fs = require('fs')
-,   path = require('path')
-,   gulp_config = require('./gulp-config');
+,   rjs = require('requirejs')
+,   path = require('path');
 
-var config = {};
-var { globs, exportFile, shimConfig } = package_manager.getConfig('javascript','js');
-config = _.extend(config,package_manager.config);
-config.baseUrl = `http://localhost:${gulp_config.port}/`
-config.shim = shimConfig || {}
-config.build = 'local';
-config.wrap = true;
-config.optimize = 'none';
-config.preserveLicenseComment = false;
-config.exportFile = exportFile;
+let config = {}
+,   {globs, exportFile, shimConfig} = package_manager.getConfig('javascript', 'js')
+,   distribution_path = path.relative(process.cwd(), package_manager.getDistFolderPath())
+,   requireConfigFile = 'require_config'
+,   requireConfigFile_Ext = 'require_config.js'
+,   appEntrypointsFileModuleId = 'Application.Starter.Entrypoints';
 
-function generateConfigContent(config){
-    var template = _.template(`try{\nrequire.config(<%= require_config %>);
-    require([\'Application\'],function(Application){
-        var application = new Application();
-        application.start();
-    })}\ncatch(e){};`);
+exportFile = path.join(distribution_path, exportFile);
+config.shim = shimConfig || {};
 
-    var starter_content = template({
-        require_config: JSON.stringify(config,null,'\t')
+/**
+ * @method getRequireConfigTemplate  Returns a configuration template file which is supported by require.js
+ * @param {Object} config
+ * @returns {String}
+ */
+function getRequireConfigTemplate(config){
+    let template = _.template(
+        "require.config(<%= require_config %>);\n" +
+        "require([\'Application\'], function(Application){\n" +
+        "\t" + "var application = new Application();\n" +
+        "\t" + "application.start();\n" + 
+        "});"
+    );
+
+    let starter_content = template({
+        require_config: JSON.stringify(config, null, '\t')
     });
 
     return starter_content;
 }
 
-function generateEntrypointFile(){
-
-    onFile = function(file){
-        
-        if(config && config['paths'] && !config['paths']['Application.Starter.Entrypoints'])
-        {
-            var { build_folder_path, file_name } = _generateEntrypointFile(config);
-            config['paths']['Application.Starter.Entrypoints'] = path.join(path.relative(process.cwd(),build_folder_path),file_name).replace(/\\/g,'/').replace(/\.js$/,'');
-        }
-        this.emit('data',file);
-    }
-
-    return through(onFile);
-}
-
-function _generateEntrypointFile(config){
-    
-    var entry_points = distro['javascript'] && distro['javascript'].entrypoints
-    ,   template = _.template(`define('Application.Starter.Entrypoints'\n,\t[<%= entry_points %>]\n,\tfunction(<%= args %>){\n 
+/**
+ * @method generateAppEntryPointsTemplate  Creates and returns the "Application.Starter.Entrypoints.js" template which contains all initial dependency to start application on browser.
+ * @returns {String}
+ */
+function generateAppEntryPointsTemplate() {
+    let entry_points = distro['javascript'] && distro['javascript'].entrypoints
+    ,   template = _.template(`define('${appEntrypointsFileModuleId}'\n,\t[<%= entry_points %>]\n,\tfunction(<%= args %>){\n 
         var _modules = Array.prototype.slice.call(arguments); 
         return function loadModules(application)
         {
             _modules && _modules.forEach( _module => { typeof(_module) == "function" ? _module.call(this,application) : (void 0); },this);
 
         }\n\t}\n)`)
-    ,   entrypoint_content = template({
-        entry_points: _.map(entry_points||[], (ep) => { return '\''+ep+'\''; })
-    ,   args: _.map(entry_points||[], (ep,i) => { return 'a'+i; })
+    ,   contents = template({
+            entry_points: _.map(entry_points || [], (ep) => { return '\'' + ep + '\''; })
+        ,   args: _.map(entry_points || [], (ep, i) => { return 'a' + i; })
     });
     
-    var build_type = config['build']
-    ,   build_folder_path = package_manager.getDistFolderPath(build_type);
+    return contents;
+}
+
+/**
+ * @method templateToStartApp   Returns a template to overwrite the codes of requirejs config during optimization.
+ * @returns {String}
+ */
+function templateToStartApp(){
+    return ("require([\'Application\'], function(Application){\n" +
+    "\t" + "var application = new Application();\n" +
+    "\t" + "application.start();\n" + 
+    "});");
+}
+
+/**
+ * @method buildJavaScript  Wrap all dependency modules into single file based on specified configuration using require.js optimizer.
+ * @param {Function} cb
+ */
+function buildJavaScript(cb){
+    let contents = generateAppEntryPointsTemplate({})
+    ,   rawText = {}
+    ,   requireConfigFile_path = distribution_path + '/' + requireConfigFile
+    ,   requireConfigFile_Ext_path = distribution_path + '/' + requireConfigFile_Ext
+    //You can include your own amd-loader, but add the file to workspace and it's path to distro before using it here.
+    ,   path_to_almond = distro.amdLoader.almond;
     
-    if( !fs.existsSync(build_folder_path) )
-        fs.mkdirSync(build_folder_path);
+    rawText[appEntrypointsFileModuleId] = contents;
 
-    fs.writeFileSync(path.join(build_folder_path,'Application.Starter.Entrypoints.js'), Buffer.from(entrypoint_content));
-    return { build_folder_path, file_name:'Application.Starter.Entrypoints.js' };
+    rjs.optimize({
+        baseUrl: '.'
+    ,   mainConfigFile: requireConfigFile_Ext_path
+    ,   include: [path_to_almond ,requireConfigFile_path]
+    ,   optimize: 'none'
+    ,   out: exportFile
+    ,   wrap: false
+    ,   rawText: rawText
+    ,   onBuildWrite: function(moduleName, path, contents){
+            return moduleName != requireConfigFile_path ? contents : templateToStartApp();
+        }
+    }, function(buildResponse){
+        // console.log('build response', buildResponse);
+        cb();
+    }, cb);
 }
 
-
-function javascript(){
-    return src(globs)
-    .pipe(generateEntrypointFile())
-    .pipe(package_manager.generateMainConfigFile(config,generateConfigContent))
-    .pipe(requirejsOptimizer(config).on('error',function(err){ console.log(err) }))
-    .pipe(concat('config.js'))
-    .pipe(dest( package_manager.getDistFolderPath(config.build) ));
+/**
+ * @method javscript    looks into all specified globs & generates 2 files.
+ * 1. require_config.js => Contains all the necessary configurations to load modules by require.js
+ * 2. javascript.js => A file that contains contents of all necessary files in optimized manner.
+ * @returns {<Readable|Writable> Stream}
+ */
+function javascript() {
+    return gulp.src(globs)
+    .pipe(package_manager.generateMainConfigFile(_.extend(config, {exportFile: requireConfigFile_Ext}), getRequireConfigTemplate))
+    .on('end', buildJavaScript);
 }
 
-exports.javascript = javascript;
+module.exports = javascript;

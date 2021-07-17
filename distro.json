@@ -1,11 +1,10 @@
 {
-    "name": "MovieSpace2"
+    "name": "MovieSpace"
 ,   "author": "Sohankd"
 ,   "modulePath":{
         "Modules": "src/Modules"
     ,   "vendor": "src/vendor" 
-    ,   "local": "LocalDist"
-    ,   "production": "ProductionDist"
+    ,   "DistributionFolder": "Dist"
     }
 ,   "modules":[
         "Modules/Application"
@@ -80,6 +79,10 @@
                 }
             }
         }
+    }
+,   "amdLoader": {
+        "almond": "src/vendor/almond/almond"
+    ,   "require": "src/vendor/require/require"
     }
 ,   "template":{
         "folder": "Template"

@@ -1,5 +1,5 @@
 var gulp = require('gulp')
-,   gulp_sass = require('gulp-sass')
+,   gulp_sass = require('gulp-sass')(require('node-sass'))
 ,   sourcemaps = require('gulp-sourcemaps')
 ,   package_manager = require('./package_manager')
 ,   concat = require('gulp-concat')
@@ -7,10 +7,14 @@ var gulp = require('gulp')
 ,   distro = require('../distro')
 ,   path = require('path');
 
-var {globs,exportFile} = package_manager.getConfig('scss','scss')
-,   mainFilePath = path.join( distro['modulePath'].Modules, '/**/', distro['scss'] && distro['scss'].mainFile)
-,   globs = mainFilePath || (globs);
+let {globs, exportFile} = package_manager.getConfig('scss','scss')
+,   mainFilePath = path.join( distro['modulePath'].Modules, '/**/', distro['scss'] && distro['scss'].mainFile);
+globs = mainFilePath || (globs);
 
+/**
+ * @method sass     Look into the specified globs, validates *.scss files, generates sourcemap & commpressed css file.
+ * @returns {<Readable|Writable> Stream}
+ */
 function sass(){
     return gulp.src(globs)
     .pipe(sourcemaps.init())
@@ -18,7 +22,7 @@ function sass(){
     .pipe(prefixer())
     .pipe(concat(exportFile))
     .pipe(sourcemaps.write('.'))
-    .pipe(gulp.dest(package_manager.getDistFolderPath('local')))
+    .pipe(gulp.dest(package_manager.getDistFolderPath()))
 }
 
-exports.sass = sass
+module.exports = sass;

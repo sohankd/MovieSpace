@@ -9,17 +9,35 @@
         <title>Movie Space</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="LocalDist/style.css">
+        <!-- build:css --><!-- endbuild -->
     </head>
     <body>
         <!--[if lt IE 7]>
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
         <div id="root"></div>
-        <!-- <script data-main="main.js" src="src/vendor/require/require.js" async defer></script> -->
-        <!-- <script src="build/bundle2.js" async defer></script> -->
-        <!-- <script src="build/bundle.js" async defer></script> -->
-        <!-- <script src="dist/bundle.js"></script> -->
-        <script data-main="LocalDist/javascript.js" src="src/vendor/require/require.js" async defer></script>
+        <!-- build:js --><!-- endbuild -->
+        <!-- build:tpl --><!-- endbuild -->
+        <script>
+            (function(){
+                var host = location.href.split('/')[0]
+                ,   patt = /https?:\/\//i
+                ,   links = document.querySelectorAll('link')
+                ,   scripts = document.querySelectorAll('script');
+        
+                for(var i = 0; i < links.length || i < scripts.length; i++){
+                    var _href = links[i] && links[i].getAttribute('data-href')
+                    ,   _src = scripts[i] && scripts[i].getAttribute('data-src')
+                    if(_href){
+                        links[i].href = (!patt.test(_href) ? host + '/' : '') + _href;
+                        links[i].removeAttribute('data-href');
+                    }
+                    if(_src){
+                        scripts[i].src = (!patt.test(_src) ? host + '/' : '') + _src;
+                        scripts[i].removeAttribute('data-src');
+                    }
+                }
+            }())
+        </script>
     </body>
 </html>
