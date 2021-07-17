@@ -79,6 +79,7 @@ function htmlReplace(config){
 function copyAssets(cb){
     return merge(
         gulp.src('src/img/*', {base: 'src'})
+    ,   gulp.src('src/fontawesome/webfonts/*', {base: 'src/fontawesome'})
     ,   gulp.src('index.html', {base: '.'})
         .pipe(htmlReplace({
                 css: `<link rel="stylesheet" data-href="${css_export_file}" />`

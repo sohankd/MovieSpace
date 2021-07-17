@@ -20,7 +20,7 @@
         <!-- build:tpl --><!-- endbuild -->
         <script>
             (function(){
-                var host = location.href.split('/')[0]
+                var host = location.origin || location.href.split('/', 3).join('/')
                 ,   patt = /https?:\/\//i
                 ,   links = document.querySelectorAll('link')
                 ,   scripts = document.querySelectorAll('script');

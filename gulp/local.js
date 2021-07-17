@@ -20,7 +20,8 @@ function setAppRoot(app_root) {
 function server(){
     let port = gulp_config.port;
 
-    app.use( '/', express.static(path.join( this.app_root, 'index.html')));
+    app.use('/', express.static(this.app_root));
+    app.use('/*', express.static(path.join( this.app_root, 'index.html')));
     app.listen( port, function(){
         console.log('Express server listening on port %d in %s mode', port, app.settings.env);
     });
