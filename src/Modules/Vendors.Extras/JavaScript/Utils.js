@@ -5,8 +5,7 @@ define('Utils',
     'use strict';
     
     return {
-      
-        setUrlParams: function(url,params){
+        setUrlParams: function(url, params){
             if(url){
                 var baseUrl = url.indexOf('?') != -1 ? url.substring(0,url.indexOf('?')) : url
                 ,   parameters = url.indexOf('?') != -1 ? url.substring(url.indexOf('?'),url.length) : '';
@@ -20,7 +19,8 @@ define('Utils',
                 return baseUrl;
             }
         }
-    ,   appendToUrl: function(url,paths,keepParams){
+
+    ,   appendToUrl: function(url, paths, keepParams){
             if(url && typeof url == 'string'){
                 var baseUrl = url.indexOf('?') != -1 ? url.substring(0,url.indexOf('?')) : url
                 ,   parameters = url.indexOf('?') != -1 ? url.substring(url.indexOf('?'),url.length) : '';
@@ -49,6 +49,11 @@ define('Utils',
 
     ,   isAbsoluteUrl: function(url){
             return /(?:^[a-z][a-z0-9+.\-]*:|\/\/)/gi.test(url);
+        }
+
+    ,   getAbsoluteAssetPath: function(asset_url){
+            asset_url = (asset_url && !asset_url.indexOf('/') ? '' : '/') + asset_url;
+            return (location.origin || location.href.split('/', 3).join('/')) + asset_url;
         }
     };
 });

@@ -1,6 +1,15 @@
 define('ImageLoader'
-,   [ 'jquery','underscore' ]
-,   function ( jQuery,_ ) {
+,   [
+        'jquery'
+    ,   'Utils'
+    ,   'underscore'
+    ]
+,   function (
+        jQuery
+    ,   Utils
+    ,   _
+    )
+{
 
     'use strict';
 
@@ -13,6 +22,10 @@ define('ImageLoader'
             rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) && /* or $(window).height() */
             rect.right <= (window.innerWidth || document.documentElement.clientWidth) /* or $(window).width() */
         );
+    }
+
+,   loadDefaultImage = function(){
+        this.setAttribute('src', Utils.getAbsoluteAssetPath('/img/no_image.png'));
     }
     
 ,   getLazyloadTemplate = function(tmpl_string){
@@ -51,9 +64,7 @@ define('ImageLoader'
                 lazyImage.addEventListener('load', function(){
                     lazyImage.removeAttribute('data-src');
                 });
-                lazyImage.addEventListener('error', function(){
-                    this.setAttribute('src','src/img/no_image.png');
-                });
+                lazyImage.addEventListener('error', loadDefaultImage);
             });
         }
         else {
@@ -68,9 +79,7 @@ define('ImageLoader'
                             return image !== lazyImage;
                         });
 
-                        lazyImage.onerror = function(){
-                            this.setAttribute('src','src/img/no_image.png')
-                        }
+                        lazyImage.addEventListener('error', loadDefaultImage);
                     }
                 });
             },200)();
