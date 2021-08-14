@@ -1,6 +1,6 @@
 define('MediaCollections.Item.View'
 ,   [
-        'text!src/Modules/MediaCollections/Template/media_collections_item.hbs'
+        'media_collections_item.hbs'
     ,   'Marionette'
     ,   'Utils'
     ]

@@ -1,6 +1,6 @@
 define('Global.SortBy.View'
 ,   [
-        'text!src/Modules/GlobalViews/Template/global_sort_by_view.hbs'
+        'global_sort_by_view.hbs'
     ,   'Marionette'
     ,   'Url'
     ,   'underscore'

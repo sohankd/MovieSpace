@@ -1,6 +1,6 @@
 define('Header.Search.View'
 ,   [
-        'text!src/Modules/Header/Template/header_search.hbs'
+        'header_search.hbs'
     ,   'Marionette'
     ,   'Utils'
     ]

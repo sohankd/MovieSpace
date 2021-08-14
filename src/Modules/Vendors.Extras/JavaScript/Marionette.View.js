@@ -18,21 +18,12 @@ define(
     'use strict';
     
     _.extend(Marionette.View.prototype,{
-        
-        getTemplate: function() {
-            var compiled_template = this.template;
-
-            if(this.template && !_.isFunction(this.template)){
-                var template = ImageLoader.getLazyloadTemplate(this.template);
-                compiled_template = Handlebars.compile(template);
-            }
-            else if( this.template && this.template.length > 0 )
-                console.warn('Template doesn\'t have any content');
-            else
-                throw new Error('View Doesn\'t have a template.');
-
-            return compiled_template;
-        }
+        // @override _renderHtml
+        _renderHtml: _.wrap(Marionette.View.prototype._renderHtml, function(fn){
+            // Returned template string after compiling template with view's context and data. 
+            var tpl_string = fn.apply(this, _.toArray(arguments).slice(1));
+            return ImageLoader.getLazyloadTemplate(tpl_string);
+        })
 
     ,   render: _.wrap(Marionette.View.prototype.render,function(fn) {
             _.bind(fn,this)(); //binds current views 'this' object to render function of Marionette.view  

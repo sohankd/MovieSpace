@@ -1,6 +1,6 @@
 define('Home.View'
 ,   [
-        'text!src/Modules/Home/Template/home.hbs'
+        'home.hbs'
     ,   'Movie.Model'
     ,   'Marionette'
     ]

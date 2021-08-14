@@ -1,6 +1,6 @@
 define('Layout.View'
 ,   [
-        'text!src/Modules/Layout/Template/layout.hbs'
+        'layout.hbs'
     ,   'Header.View'
     ,   'Footer.View'
 

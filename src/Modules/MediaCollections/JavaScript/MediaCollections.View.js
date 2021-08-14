@@ -1,6 +1,6 @@
 define('MediaCollections.View'
 ,   [
-        'text!src/Modules/MediaCollections/Template/media_collections.hbs'
+        'media_collections.hbs'
     ,   'MediaCollections.Item.View'
     ,   'Global.SortBy.View'
     ,   'Global.Pagination.View'

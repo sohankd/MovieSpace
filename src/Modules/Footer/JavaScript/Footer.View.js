@@ -1,6 +1,6 @@
 define('Footer.View',
     [
-        'text!src/Modules/Footer/Template/footer.hbs'
+        'footer.hbs'
     ,   'Marionette'
     ]
 ,   function

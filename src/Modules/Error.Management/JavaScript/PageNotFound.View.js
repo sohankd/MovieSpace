@@ -1,6 +1,6 @@
 define('PageNotFound.View'
 ,   [
-        'text!src/Modules/Error.Management/Template/page_not_found.hbs'
+        'page_not_found.hbs'
     ,   'Marionette'
     ]
 ,   function

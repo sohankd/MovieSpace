@@ -1,6 +1,6 @@
 define('Global.Pagination.View'
 ,   [
-        'text!src/Modules/GlobalViews/Template/global_pagination.hbs'
+        'global_pagination.hbs'
     ,   'Url'
     ,   'Marionette'
     ]

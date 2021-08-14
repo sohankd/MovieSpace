@@ -1,5 +1,5 @@
 define([
-        'text!src/Modules/ProductDetails/Template/productdetails.hbs'
+        'productdetails.hbs'
     ,   'Marionette'
     ]
 ,   function

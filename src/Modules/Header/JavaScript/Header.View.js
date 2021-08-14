@@ -4,7 +4,7 @@ define('Header.View',
     ,   'Header.Search.View'
     ,   'Search.Collection'
     ,   'backbone'
-    ,   'text!src/Modules/Header/Template/header.hbs'
+    ,   'header.hbs'
     ,   'jquery'
     ,   'Utils'
     ]

@@ -3,7 +3,7 @@
 ,   "author": "Sohankd"
 ,   "modulePath":{
         "Modules": "src/Modules"
-    ,   "vendor": "src/vendor" 
+    ,   "Vendor": "src/Vendor" 
     ,   "DistributionFolder": "Dist"
     }
 ,   "modules":[
@@ -19,14 +19,14 @@
     ,   "Modules/Models"
     ,   "Modules/GlobalViews"
     ,   "Modules/MediaCollections"
-    ,   "vendor/backbone"
-    ,   "vendor/backbone.radio"
-    ,   "vendor/bootstrap"
-    ,   "vendor/Marionette"
-    ,   "vendor/jquery"
-    ,   "vendor/text"
-    ,   "vendor/underscore"
-    ,   "vendor/handlebars"
+    ,   "Vendor/backbone"
+    ,   "Vendor/backbone.radio"
+    ,   "Vendor/bootstrap"
+    ,   "Vendor/Marionette"
+    ,   "Vendor/jquery"
+    ,   "Vendor/text"
+    ,   "Vendor/underscore"
+    ,   "Vendor/handlebars"
     ]
 ,   "javascript":{
         "folder": "JavaScript"
@@ -72,8 +72,7 @@
         }
     }
 ,   "amdLoader": {
-        "almond": "src/vendor/almond/almond"
-    ,   "require": "src/vendor/require/require"
+        "almond": "src/Vendor/almond/almond"
     }
 ,   "template":{
         "folder": "Template"

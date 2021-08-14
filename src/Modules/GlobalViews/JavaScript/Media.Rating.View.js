@@ -1,6 +1,6 @@
 define('Media.Rating.View'
 ,   [
-        'text!src/Modules/GlobalViews/Template/media_rating.hbs'
+        'media_rating.hbs'
     ,   'Marionette'
     ]
 ,   function
