@@ -7,8 +7,9 @@ var gulp = require('gulp')
 ,   distro = require('../distro')
 ,   path = require('path');
 
-let {globs, exportFile} = package_manager.getConfig('scss','scss')
-,   mainFilePath = path.join( distro['modulePath'].Modules, '/**/', distro['scss'] && distro['scss'].mainFile);
+let globs = package_manager.getGlobs('scss', 'scss')
+,   exportFile = package_manager.getExportFile('scss')
+,   mainFilePath = path.join(distro['modulePath'].Modules, '/**/', distro['scss'] && distro['scss']['mainFile']);
 globs = mainFilePath || (globs);
 
 /**

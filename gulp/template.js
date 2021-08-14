@@ -5,11 +5,11 @@ let gulp = require('gulp')
 ,   path = require('path')
 ,   through = require('through')
 ,   Vinyl = require('vinyl')
-,   concat = require('gulp-concat');
+,   distro = require('../distro.json');
 
-let templateExt = 'hbs'
-,   {globs, exportFile} = package_manager.getConfig('template', templateExt)
-,   compiledTemplatePath = path.posix.join(package_manager.getDistFolderPath(), '');
+let templateExt = (distro['template']['extname'] || 'html')
+,   globs = package_manager.getGlobs('template', templateExt)
+,   compiled_files_folder = distro['compiledFilesFolder'] || 'precompiled';
 
 /**
  * @method addDefineModuleName  Set 'id' for amd-define module.
@@ -19,51 +19,24 @@ let templateExt = 'hbs'
  * @returns {String}
  */
 function addDefineModuleName(filePath){
-    let last_path_index = filePath.lastIndexOf('\\') || filePath.lastIndexOf('/')
-    ,   fileName = filePath.substr(last_path_index + 1, filePath.length)
+    let fileName = path.basename(filePath)
     ,   newFileName = fileName.replace(/(.js)$/, '.'+ templateExt);
     return newFileName;
 }
 
 /**
- * @method extractFileOnly  Removes all parent directories and set the path to file name only.
- * For example, D:\\abc\def\ghi.js (Older file path ) => ghi.js (new file path)
+ * @method storeProcessedTemplates  Store processed template files in the specified folder.
  * @returns {<Readable|Writable> Stream}
  */
-function extractFileOnly(){
+function storeProcessedTemplates(){
     onFile = function(file){
-        let filePath = file.path
-        ,   last_parent_dir_index = filePath.lastIndexOf('\\') || filePath.lastIndexOf('/')
-        ,   fileName = filePath.substr(last_parent_dir_index + 1, filePath.length)
-        ,   newFile;
-
-        newFile = new Vinyl({
-            path: fileName
-        ,   contents: Buffer.from(file.contents)
-        });
-        
-        this.queue(newFile);
-    }
-    return through(onFile);
-}
-
-/**
- * @method wrap  Simply wrap the contents with provided fragments.
- * This function is specific to this project. Customize as per your need.
- * @param {Object} fragments
- * @returns {<Readable|Writable> Stream}
- */
-function wrap({startFrag, endFrag}){
-    function onFile(file){
-        let contents = file.contents
-        ,   startFragBuffer = Buffer.from(startFrag)
-        ,   endFragBuffer = Buffer.from(endFrag)
-        ,   newFile;
-
-        newFile = new Vinyl({
-            path: file.path
-        ,   contents: Buffer.from(Buffer.concat([startFragBuffer, contents, endFragBuffer]))
-        });
+        let fileName = path.basename(file.path)
+        ,   file_ext = path.extname(file.path)
+        ,   patt = new RegExp(file_ext + '$', 'i')
+        ,   newFile = new Vinyl({
+                path: path.resolve(compiled_files_folder, 'templates', fileName.replace(patt, '.' + templateExt + file_ext))
+            ,   contents: Buffer.from(file.contents)
+            });
         
         this.queue(newFile);
     }
@@ -84,14 +57,8 @@ function template(){
             }
         })
     )
-    .pipe(extractFileOnly())
-    .pipe(concat(exportFile, {newLine: '\n\n'}))
-    .pipe(wrap({
-            startFrag: '(function(){\n'
-        ,   endFrag: '\n}())'
-        })
-    )
-    .pipe(gulp.dest(compiledTemplatePath));
+    .pipe(storeProcessedTemplates())
+    .pipe(gulp.dest('.'));
 }
 
 module.exports = template;

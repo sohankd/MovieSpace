@@ -43,12 +43,12 @@ function getDistFolderPath(){
     return build_folder_path || process.cwd();
 }
 /**
- * @method absoluteModulePath   Returns absolute path of module.
+ * @method getGlobs   Returns absolute path of modules & files present inside them.
  * @param {String} filetype 
  * @param {String} extType 
  * @returns {<String>Array}
  */
-function absoluteModulePath(filetype, extType){
+function getGlobs(filetype, extType){
     let modulePaths = distro.modulePath && _.keys(distro.modulePath)
     ,   modules = distro.modules || [];
     
@@ -68,28 +68,15 @@ function absoluteModulePath(filetype, extType){
  * @returns {String|undefined}
  */
 function getExportFile(filetype){
-    return distro[filetype] && distro[filetype].exportFile;
+    return (distro[filetype] && distro[filetype].exportFile) || distro['buildFile'];
 }
 /**
  * @method getShimConfig	Returns the shim configuration object for the libraries that do not support AMD modules.
  * @param {String} filetype 
  * @returns {Object|undefined}
  */
-function getShimConfig(filetype){
-    return distro[filetype] && distro[filetype].amdConfig && distro[filetype].amdConfig['shim'];
-}
-/**
- * @method getConfig	Returns an object that contains globs, export file name & shim configuration object.
- * @param {String} filetype 
- * @param {String} extType 
- * @returns {Object}
- */
-function getConfig(filetype, extType){
-    let config = {};
-    config['globs'] = absoluteModulePath(filetype, extType);
-    config['exportFile'] = getExportFile(filetype);
-    filetype == "javascript" && (config['shimConfig'] = getShimConfig(filetype))
-    return config;
+function getShimConfig(){
+    return distro['amdConfig'] && distro['amdConfig']['shim'];
 }
 /**
  * @method generateMainConfigFile	Helps to create a requirejs supported config file & returns a stream.
@@ -124,6 +111,8 @@ function generateMainConfigFile(config, fn){
     return through(onFile);
 }
 
-exports.getConfig = getConfig;
+exports.getGlobs = getGlobs;
 exports.generateMainConfigFile = generateMainConfigFile;
 exports.getDistFolderPath = getDistFolderPath;
+exports.getShimConfig = getShimConfig;
+exports.getExportFile = getExportFile;

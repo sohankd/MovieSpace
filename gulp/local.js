@@ -1,15 +1,17 @@
 let gulp = require('gulp')
 ,   express = require('express')
 ,   path = require('path')
-,   gulp_config = require('./gulp-config')
+,   dotenv = require('dotenv')
 ,   javascript = require('./javascript')
 ,   sass = require('./sass')
 ,   template = require('./template')
 ,   assets = require('./assets')
-,   clean = require('./clean');
+,   clean = require('./clean')
+,   build = require('./build');
 
 let app = express();
 this.app_root;
+dotenv.config();
 
 function setAppRoot(app_root) {
     this.app_root = app_root;
@@ -18,7 +20,7 @@ function setAppRoot(app_root) {
  * @method server   Starts listening to requests.
  */
 function server(){
-    let port = gulp_config.port;
+    let port = process.env.port;
 
     app.use('/', express.static(this.app_root));
     app.use('/*', express.static(path.join( this.app_root, 'index.html')));
@@ -31,11 +33,11 @@ function server(){
  * @param {Function} cb
  */
 function watch(cb){
-    gulp.watch('src/**/*.hbs', template);
-    gulp.watch('src/**/*.js', javascript);
+    gulp.watch('src/**/*.hbs', gulp.series([template, build]));
+    gulp.watch('src/**/*.js', gulp.series([javascript, build]));
     gulp.watch('src/**/*.scss', sass);
     cb();
 }
 
-exports.local = gulp.series([clean, gulp.parallel([template, sass, javascript, assets]), watch, server])
+exports.local = gulp.series([clean, gulp.parallel([template, sass, javascript, assets]), build, watch, server])
 exports.setAppRoot = setAppRoot;

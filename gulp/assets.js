@@ -7,8 +7,7 @@ let gulp = require('gulp')
 ,   _ = require('underscore');
 
 let dist_folder = package_manager.getDistFolderPath()
-,   js_export_file = distro.javascript.exportFile
-,   tpl_export_file = distro.template.exportFile
+,   js_tpl_export_file = distro.buildFile
 ,   css_export_file = distro.scss.exportFile;
 
 /**
@@ -82,9 +81,8 @@ function copyAssets(cb){
     ,   gulp.src('src/fontawesome/webfonts/*', {base: 'src/fontawesome'})
     ,   gulp.src('index.html', {base: '.'})
         .pipe(htmlReplace({
-                css: `<link rel="stylesheet" data-href="${css_export_file}" />`
-            ,   js: `<script data-src="${js_export_file}" async defer></script>`
-            // ,   tpl: `<script data-src="${tpl_export_file}" async defer></script>`
+                css: `<link rel="stylesheet" href="${process.env.baseUrl + css_export_file}" />`
+            ,   js: `<script src="${process.env.baseUrl + js_tpl_export_file}" async defer></script>`
             })
         )
     )
